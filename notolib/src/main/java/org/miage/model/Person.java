@@ -1,17 +1,17 @@
 package org.miage.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Table(name = "person")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="person_type")
 @Entity
-public class Person {
+public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id", nullable = false)
     private Integer id;
-
-    @Column(name = "person_type", nullable = false, length = 1)
-    private String personType;
 
     @Column(name = "first_name", length = 100)
     private String firstName;
@@ -55,14 +55,6 @@ public class Person {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getPersonType() {
-        return personType;
-    }
-
-    public void setPersonType(String personType) {
-        this.personType = personType;
     }
 
     public Integer getId() {

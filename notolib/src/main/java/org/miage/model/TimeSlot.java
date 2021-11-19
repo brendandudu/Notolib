@@ -17,7 +17,7 @@ public class TimeSlot {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "person_id", nullable = false)
-    private Person person;
+    private Notary notary;
 
     @Lob
     @Column(name = "day_of_week", nullable = false)
@@ -53,12 +53,12 @@ public class TimeSlot {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public Person getPerson() {
-        return person;
+    public Notary getNotary() {
+        return notary;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setNotary(Notary notary) {
+        this.notary = notary;
     }
 
     public Integer getId() {
