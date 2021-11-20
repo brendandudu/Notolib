@@ -9,6 +9,14 @@ import java.util.Collection;
 @DiscriminatorValue("N")
 public class Notary extends Person{
 
+    public Notary() {
+        super();
+    }
+
+    public Notary(String firstName, String lastName, String email, String phoneNumber) {
+        super(firstName, lastName, email, phoneNumber);
+    }
+
     @OneToMany(mappedBy = "notary")
     private Collection<TimeSlot> timeSlot;
 

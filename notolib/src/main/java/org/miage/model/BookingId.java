@@ -20,6 +20,16 @@ public class BookingId implements Serializable {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
+    public BookingId(Acquirer acquirer, TimeSlot timeSlot, LocalDate date) {
+        this.acquirer = acquirer;
+        this.timeSlot = timeSlot;
+        this.date = date;
+    }
+
+    public BookingId() {
+
+    }
+
     public Acquirer getAcquirer() {
         return acquirer;
     }

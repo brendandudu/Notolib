@@ -1,15 +1,26 @@
 package org.miage.model;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@NamedQueries(
+        {
+                @NamedQuery(name = "getAllBookingsByPersonId", query = "Select b from Booking b join b.id.timeSlot t where b.id.acquirer.id = :personId or t.notary.id = :personId"),
+                @NamedQuery(name = "getBookingsByPersonAndDate", query = "Select b from Booking b join b.id.timeSlot t where (b.id.acquirer.id = :personId or t.notary.id = :personId) AND b.id.date = :date")
+        }
+)
 @Table(name = "booking")
 @Entity
 public class Booking {
     @EmbeddedId
     private BookingId id;
+
+    public Booking(BookingId id) {
+        this.id = id;
+    }
+
+    public Booking() {
+
+    }
 
     public BookingId getId() {
         return id;

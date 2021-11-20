@@ -1,20 +1,41 @@
 package org.miage;
 
+import io.quarkus.test.junit.QuarkusTest;
+import org.jboss.logging.Logger;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.miage.dao.BookingDAO;
+import org.miage.dao.IncompatibleDayOfWeekException;
+import org.miage.dao.WeekDay;
 import org.miage.model.*;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@QuarkusTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EntitiesTest {
+
+    //TODO rajouter les assert !
+    private static final Logger log = Logger.getLogger(EntitiesTest.class);
 
     @PersistenceContext
     EntityManager em;
 
+    @Inject
+    BookingDAO bookingDAO;
+
     @Test
+    @Order(1)
     @Transactional
     public void addNotary() {
         Notary e = new Notary();
@@ -22,6 +43,7 @@ public class EntitiesTest {
     }
 
     @Test
+    @Order(2)
     @Transactional
     public void addAcquirer() {
         Acquirer e = new Acquirer();
@@ -29,11 +51,12 @@ public class EntitiesTest {
     }
 
     @Test
+    @Order(3)
     @Transactional
     public void addTimeSlot() {
         Notary e = em.find(Notary.class, 1);
         TimeSlot ts = new TimeSlot();
-        ts.setDayOfWeek("mardi");
+        ts.setDayOfWeek(WeekDay.FRIDAY);
         ts.setStartTime(LocalTime.of(14,10));
         ts.setEndTime(LocalTime.of(14,20));
         ts.setNotary(e);
@@ -41,16 +64,42 @@ public class EntitiesTest {
     }
 
     @Test
+    @Order(4)
     @Transactional
     public void addBooking() {
         Acquirer a = em.find(Acquirer.class, 2);
         TimeSlot ts = em.find(TimeSlot.class, 1);
-        BookingId id = new BookingId();
-        id.setAcquirer(a);
-        id.setTimeSlot(ts);
-        id.setDate(LocalDate.now());
-        Booking b = new Booking();
-        b.setId(id);
+        BookingId id = new BookingId(a,ts,LocalDate.now());
+        Booking b = new Booking(id);
         em.persist(b);
+    }
+
+
+    //todo déplacer dans package différents + créer un jeu de données dans fichier sql + ajouter assert
+
+    @Test
+    @Order(5)
+    @Transactional
+    public void imcompatibleDayOfWeekException() {
+        TimeSlot ts = em.find(TimeSlot.class, 1);
+        Acquirer a = em.find(Acquirer.class, 2);
+        assertThrows(IncompatibleDayOfWeekException.class, () ->
+                bookingDAO.bookTimeSlotAtDate(ts, a, LocalDate.of(2021,11,20)));
+    }
+
+    @Test
+    @Order(6)
+    @Transactional
+    public void getBookings() {
+        log.info(bookingDAO.getAllBookings(2).size());
+    }
+
+    @Test
+    @Order(7)
+    @Transactional
+    public void getBookingsByDate() {
+        log.info(bookingDAO.getBookingsByDate(2, LocalDate.now()).size());
+        log.info(LocalDate.of(2021,11,15));
+        log.info(bookingDAO.getBookingsByDate(2, LocalDate.of(2021,11,15)).size());
     }
 }

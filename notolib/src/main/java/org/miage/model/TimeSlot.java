@@ -1,10 +1,12 @@
 package org.miage.model;
 
+import org.miage.dao.WeekDay;
 import org.miage.model.Person;
 
 import javax.persistence.*;
 import java.time.LocalTime;
 
+@NamedQuery(name = "getAllTimeSlotByNotaryId", query = "Select t from TimeSlot t where t.notary.id = :notaryId")
 @Table(name = "time_slot", indexes = {
         @Index(name = "person_id", columnList = "person_id")
 })
@@ -19,15 +21,24 @@ public class TimeSlot {
     @JoinColumn(name = "person_id", nullable = false)
     private Notary notary;
 
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week", nullable = false)
-    private String dayOfWeek;
+    private WeekDay dayOfWeek;
 
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
 
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
+
+    public TimeSlot(Notary notary, WeekDay dayOfWeek, LocalTime startTime, LocalTime endTime) {
+        this.notary = notary;
+        this.dayOfWeek = dayOfWeek;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public TimeSlot(){};
 
     public LocalTime getEndTime() {
         return endTime;
@@ -45,11 +56,11 @@ public class TimeSlot {
         this.startTime = startTime;
     }
 
-    public String getDayOfWeek() {
+    public WeekDay getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public void setDayOfWeek(String dayOfWeek) {
+    public void setDayOfWeek(WeekDay dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 

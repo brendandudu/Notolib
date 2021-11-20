@@ -25,6 +25,14 @@ public abstract class Person {
     @Column(name = "phone_number", length = 150)
     private String phoneNumber;
 
+    public Person(){};
+    public Person(String firstName, String lastName, String email, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
