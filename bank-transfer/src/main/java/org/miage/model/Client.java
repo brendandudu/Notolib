@@ -26,6 +26,18 @@ public class Client {
     @JoinColumn(name = "bank_id")
     private Bank bank;
 
+    public Client(String fname, String lname, String email, String phone, Bank bank) {
+        this.firstName=fname;
+        this.lastName=lname;
+        this.email=email;
+        this.phone=phone;
+        this.bank=bank;
+
+    }
+
+    public Client() {
+    }
+
     public Bank getBank() {
         return bank;
     }

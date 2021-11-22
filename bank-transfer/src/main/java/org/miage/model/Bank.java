@@ -20,6 +20,14 @@ public class Bank {
     @OneToMany(mappedBy = "bank")
     private Collection<Client> clients;
 
+    public Bank(int id, String name) {
+        this.id=id;
+        this.name=name;
+    }
+
+    public Bank() {
+    }
+
     public String getName() {
         return name;
     }

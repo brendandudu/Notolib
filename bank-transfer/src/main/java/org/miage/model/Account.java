@@ -21,6 +21,16 @@ public class Account {
     @JoinColumn(name = "bank_id", nullable = false)
     private Bank bank;
 
+    public Account(int id, double balance, Client client) {
+        this.id = id;
+        this.balance = balance;
+        this.client = client;
+    }
+
+    public Account() {
+
+    }
+
     public Bank getBank() {
         return bank;
     }
