@@ -1,6 +1,7 @@
 package org.miage.dao;
 
 import org.miage.model.Acquirer;
+import org.miage.model.Notary;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -14,10 +15,9 @@ public class AcquirerDAOImpl implements AcquirerDAO {
     @PersistenceContext
     EntityManager em;
 
-
     @Override
-    public Collection<Acquirer> findAcquirerByAvailablity(LocalDate date) {
-        return null; //TODO requete compliqué
+    public Notary findAcquirerByEmail(String email) {
+        return null;
     }
 
     @Override

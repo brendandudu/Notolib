@@ -1,9 +1,14 @@
 package org.miage.dao;
 
 
+import org.miage.model.Acquirer;
 import org.miage.model.Notary;
+
+import java.time.LocalDate;
+import java.util.Collection;
 
 public interface NotaryDAO {
     Notary findNotaryByEmail(String email);
+    Collection<Acquirer> findNotaryByAvailablity(LocalDate date);
     Notary createNewNotary(String fname, String lname, String email, String phone);
 }
