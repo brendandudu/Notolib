@@ -81,10 +81,8 @@ public class EntitiesTest {
     @Order(5)
     @Transactional
     public void imcompatibleDayOfWeekException() {
-        TimeSlot ts = em.find(TimeSlot.class, 1);
-        Acquirer a = em.find(Acquirer.class, 2);
         assertThrows(IncompatibleDayOfWeekException.class, () ->
-                bookingDAO.bookTimeSlotAtDate(ts, a, LocalDate.of(2021,11,20)));
+                bookingDAO.bookTimeSlotOnDate(1, 2, LocalDate.of(2021,11,20)));
     }
 
     @Test

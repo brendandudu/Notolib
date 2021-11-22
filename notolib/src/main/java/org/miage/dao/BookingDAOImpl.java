@@ -25,7 +25,9 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public void bookTimeSlotAtDate(TimeSlot ts, Acquirer acquirer, LocalDate date) throws IncompatibleDayOfWeekException {
+    public void bookTimeSlotOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException {
+        TimeSlot ts = em.find(TimeSlot.class, timeSlotId);
+        Acquirer acquirer = em.find(Acquirer.class, acquirerId);
         if(! ts.getDayOfWeek().toString().equals(date.getDayOfWeek().name()))
             throw new IncompatibleDayOfWeekException();
 
