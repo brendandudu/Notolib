@@ -6,6 +6,7 @@ import org.miage.model.TimeSlot;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
 
@@ -21,6 +22,11 @@ public class TimeSlotDAOImpl implements TimeSlotDAO {
             throw new NotNotaryIdException();
 
         return em.createNamedQuery("getAllTimeSlotByNotaryId").setParameter("notaryId", notaryId).getResultList();
+    }
+
+    @Override
+    public Collection<TimeSlot> getAvailableTimeSlotAtDate(LocalDate date) {
+        return em.createNamedQuery("getAvailableTimeSlotAtDate").setParameter("date", date).getResultList();
     }
 
     @Override

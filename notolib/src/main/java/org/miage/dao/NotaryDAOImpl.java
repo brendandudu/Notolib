@@ -18,12 +18,7 @@ public class NotaryDAOImpl implements NotaryDAO{
     @Override
     public Notary findNotaryByEmail(String email) {
         return null;
-    }
-
-    @Override
-    public Collection<Acquirer> findNotaryByAvailablity(LocalDate date) {
-        return null;
-    }
+    } //TODO
 
     @Override
     public Notary createNewNotary(String fname, String lname, String email, String phone) {

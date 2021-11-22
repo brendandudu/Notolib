@@ -9,6 +9,5 @@ import java.util.Collection;
 
 public interface NotaryDAO {
     Notary findNotaryByEmail(String email);
-    Collection<Acquirer> findNotaryByAvailablity(LocalDate date);
     Notary createNewNotary(String fname, String lname, String email, String phone);
 }

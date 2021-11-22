@@ -17,7 +17,7 @@ public class AcquirerDAOImpl implements AcquirerDAO {
 
     @Override
     public Notary findAcquirerByEmail(String email) {
-        return null;
+        return null; //TODO
     }
 
     @Override
