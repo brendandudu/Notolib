@@ -3,6 +3,7 @@ package org.miage.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Collection;
 
 @Entity
@@ -20,6 +21,7 @@ public class Notary extends Person{
     @OneToMany(mappedBy = "notary")
     private Collection<TimeSlot> timeSlot;
 
+    @XmlTransient
     public Collection<TimeSlot> getTimeSlot() {
         return timeSlot;
     }

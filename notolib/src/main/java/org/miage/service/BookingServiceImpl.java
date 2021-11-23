@@ -4,11 +4,13 @@ import org.miage.dao.BookingDAO;
 import org.miage.dao.IncompatibleDayOfWeekException;
 import org.miage.dao.PersonDAO;
 import org.miage.model.Acquirer;
+import org.miage.model.Booking;
 import org.miage.model.TimeSlot;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @RequestScoped
 public class BookingServiceImpl implements BookingService{
@@ -23,7 +25,12 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public void cancelBooking(int bookingId) {
-        bookingDAO.cancelBooking(bookingId);
+    public void cancelBooking(int timeSlotId, int acquirerId, LocalDate date) {
+        bookingDAO.cancelBooking(timeSlotId, acquirerId, date);
+    }
+
+    @Override
+    public Collection<Booking> getAllBookings(int personId) {
+        return bookingDAO.getAllBookings(personId);
     }
 }

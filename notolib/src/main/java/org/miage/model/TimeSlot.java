@@ -2,8 +2,11 @@ package org.miage.model;
 
 import org.miage.dao.WeekDay;
 import org.miage.model.Person;
+import org.miage.resources.LocalTimeAdapter;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalTime;
 
 @NamedQueries({
@@ -16,6 +19,7 @@ import java.time.LocalTime;
         @Index(name = "person_id", columnList = "person_id")
 })
 @Entity
+@XmlType(propOrder = {"id", "dayOfWeek", "startTime", "endTime", "notary"})
 public class TimeSlot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +49,7 @@ public class TimeSlot {
 
     public TimeSlot(){};
 
+    @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     public LocalTime getEndTime() {
         return endTime;
     }
@@ -53,6 +58,7 @@ public class TimeSlot {
         this.endTime = endTime;
     }
 
+    @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     public LocalTime getStartTime() {
         return startTime;
     }

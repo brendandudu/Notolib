@@ -19,8 +19,12 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public void cancelBooking(int bookingId) {
-        Booking b = em.find(Booking.class, bookingId);
+    public void cancelBooking(int timeSlotId, int acquirerId, LocalDate date) {
+        Booking b = (Booking) (em.createQuery("Select b from Booking b where b.id.timeSlot.id = :timeSlotId and b.id.acquirer.id = :acquirerId and b.id.date = :date")
+                .setParameter("timeSlotId", timeSlotId)
+                .setParameter("acquirerId", acquirerId)
+                .setParameter("date", date)
+                .getSingleResult());
         em.remove(b);
     }
 
@@ -32,6 +36,7 @@ public class BookingDAOImpl implements BookingDAO {
             throw new IncompatibleDayOfWeekException();
 
         Booking b = new Booking(new BookingId(acquirer, ts, date));
+        em.persist(b);
     }
 
     @Override

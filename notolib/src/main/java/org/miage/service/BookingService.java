@@ -6,8 +6,11 @@ import org.miage.model.Booking;
 import org.miage.model.TimeSlot;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 public interface BookingService {
     void bookOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException;
-    void cancelBooking(int bookingId);
+    void cancelBooking(int timeSlotId, int acquirerId, LocalDate date);
+    Collection<Booking> getAllBookings (int personId);
+
 }
