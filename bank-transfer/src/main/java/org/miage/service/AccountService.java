@@ -8,8 +8,6 @@ import org.miage.dao.ClientDAO;
 //import org.miage.dao.NoSuchTicketException;
 import org.miage.dao.AccountDAO;
 
-import org.miage.model.Account;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.nio.charset.StandardCharsets;

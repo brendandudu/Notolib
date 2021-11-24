@@ -1,6 +1,5 @@
 package org.miage.dao;
 import javax.transaction.Transactional;
-import org.miage.model.Account;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

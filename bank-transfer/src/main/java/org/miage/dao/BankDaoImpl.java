@@ -2,8 +2,6 @@ package org.miage.dao;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.miage.model.Account;
-import org.miage.model.Bank;
 import javax.transaction.Transactional;
 import org.miage.exception.AccountNotFoundException;
 

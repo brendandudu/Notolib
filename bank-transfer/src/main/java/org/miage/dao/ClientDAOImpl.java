@@ -1,7 +1,5 @@
 package org.miage.dao;
 
-import org.miage.model.Bank;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

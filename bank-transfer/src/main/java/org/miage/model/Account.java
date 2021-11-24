@@ -14,21 +14,19 @@ public class Account {
     private Double balance;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "client_id", nullable = false)
-    private Client client;
-
-    @ManyToOne(optional = false)
     @JoinColumn(name = "bank_id", nullable = false)
     private Bank bank;
 
-    public Account(int id, double balance, Client client) {
-        this.id = id;
-        this.balance = balance;
-        this.client = client;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "notaire_id", nullable = false)
+    private Notaire notaire;
+
+    public Notaire getNotaire() {
+        return notaire;
     }
 
-    public Account() {
-
+    public void setNotaire(Notaire notaire) {
+        this.notaire = notaire;
     }
 
     public Bank getBank() {
@@ -37,15 +35,6 @@ public class Account {
 
     public void setBank(Bank bank) {
         this.bank = bank;
-    }
-
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public Double getBalance() {
