@@ -10,6 +10,14 @@ public class Bank {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    public Bank(int id, String name) {
+
+    }
+
+    public Bank() {
+
+    }
+
     public Integer getId() {
         return id;
     }

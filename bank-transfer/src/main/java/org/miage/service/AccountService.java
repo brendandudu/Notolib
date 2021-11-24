@@ -1,10 +1,10 @@
-package org.miage.service;
+/*package org.miage.service;
 import com.google.common.hash.Hashing;
 //import fr.pantheonsorbonne.ufr27.miage.dto.ETicket;
 //import fr.pantheonsorbonne.ufr27.miage.dto.TicketType;
 //import fr.pantheonsorbonne.ufr27.miage.exception.CustomerNotFoundException;
 //import fr.pantheonsorbonne.ufr27.miage.exception.ExpiredTransitionalTicketException;
-import org.miage.dao.ClientDAO;
+import org.miage.dao.NotaireDAO;
 //import org.miage.dao.NoSuchTicketException;
 import org.miage.dao.AccountDAO;
 
@@ -17,7 +17,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Inject
-    ClientDAO clientDAO;
+    NotaireDAO clientDAO;
 
     @Inject
     AccountDAO AccountDAO;
@@ -31,4 +31,4 @@ public class AccountServiceImpl implements AccountService {
     public boolean validateTicket(Account a) {
         return this.getKeyForBalance(a).equals(a.getBalance());
     }
-}
+}*/

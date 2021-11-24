@@ -21,6 +21,14 @@ public class Account {
     @JoinColumn(name = "notaire_id", nullable = false)
     private Notaire notaire;
 
+    public Account(int id, float balance, Notaire notaire) {
+
+    }
+
+    public Account() {
+
+    }
+
     public Notaire getNotaire() {
         return notaire;
     }

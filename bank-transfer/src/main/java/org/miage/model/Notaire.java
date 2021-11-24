@@ -26,6 +26,14 @@ public class Notaire {
     @JoinColumn(name = "bank_id")
     private Bank bank;
 
+    public Notaire(String fname, String lname, String email, String phone, Bank bank) {
+
+    }
+
+    public Notaire() {
+
+    }
+
     public Bank getBank() {
         return bank;
     }

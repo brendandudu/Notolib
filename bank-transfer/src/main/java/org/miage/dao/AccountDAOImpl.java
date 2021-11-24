@@ -4,6 +4,8 @@ import javax.transaction.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.enterprise.context.ApplicationScoped;
+import org.miage.model.Account;
+import org.miage.model.Notaire;
 
 @ApplicationScoped
 public class AccountDAOImpl {
@@ -22,8 +24,8 @@ public class AccountDAOImpl {
 
     //@Override
     @Transactional
-    public Account createNewCustomer(int id, float balance, Client client) {
-        Account c = new Account(id, balance, client);
+    public Account createNewCustomer(int id, float balance, Notaire notaire) {
+        Account c = new Account(id, balance, notaire);
         em.persist(c);
         return c;
     }

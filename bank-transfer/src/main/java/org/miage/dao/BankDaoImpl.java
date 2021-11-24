@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import org.miage.exception.AccountNotFoundException;
+import org.miage.model.Account;
+import org.miage.model.Bank;
 
 @ApplicationScoped
 public class BankDaoImpl {
