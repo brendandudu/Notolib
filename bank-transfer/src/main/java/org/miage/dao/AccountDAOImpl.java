@@ -1,12 +1,10 @@
 package org.miage.dao;
 import javax.transaction.Transactional;
 import org.miage.model.Account;
-import org.miage.model.Client;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.NoResultException;
 import javax.enterprise.context.ApplicationScoped;
-//import fr.pantheonsorbonne.ufr27.miage.exception.AccountNotFoundException;
 
 @ApplicationScoped
 public class AccountDAOImpl {

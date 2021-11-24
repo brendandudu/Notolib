@@ -1,13 +1,11 @@
 package org.miage.dao;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.miage.model.Account;
-import org.miage.model.Client;
 import org.miage.model.Bank;
 import javax.transaction.Transactional;
-
+import org.miage.exception.AccountNotFoundException;
 
 @ApplicationScoped
 public class BankDaoImpl {
@@ -18,10 +16,14 @@ public class BankDaoImpl {
     //@Override
     @Transactional
     public Account findAccountByClient(int client_id) {
-       Account a = em.find(Account.class, client_id);
-        /*if (null == a) {
-            throw new NoSuchTicketException();
-        }*/
+        Account a = em.find(Account.class, client_id);
+        if (null == a) {
+            try {
+                throw new AccountNotFoundException();
+            } catch (AccountNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
         return a;
     }
 
