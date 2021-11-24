@@ -22,7 +22,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }*/
 
-    //@Override
+    @Override
     @Transactional
     public Account createNewAccount(int id, float balance, Notaire notaire) {
         Account c = new Account(id, balance, notaire);
