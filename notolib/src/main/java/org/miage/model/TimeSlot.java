@@ -6,7 +6,12 @@ import org.miage.model.Person;
 import javax.persistence.*;
 import java.time.LocalTime;
 
-@NamedQuery(name = "getAllTimeSlotByNotaryId", query = "Select t from TimeSlot t where t.notary.id = :notaryId")
+@NamedQueries({
+        @NamedQuery(name = "getAllTimeSlotByNotaryId", query = "Select t from TimeSlot t where t.notary.id = :notaryId"),
+        @NamedQuery(name = "getAvailableTimeSlotAtDate", query = "Select t from Booking b LEFT JOIN b.id.timeSlot t WHERE b.id.timeSlot IS NULL AND b.id.date = :date"),
+
+}
+)
 @Table(name = "time_slot", indexes = {
         @Index(name = "person_id", columnList = "person_id")
 })
