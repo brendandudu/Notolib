@@ -8,7 +8,7 @@ import org.miage.model.Account;
 import org.miage.model.Bank;
 
 @ApplicationScoped
-public class BankDaoImpl {
+public class BankDaoImpl implements BankDAO{
 
     @PersistenceContext(name = "mysql")
     EntityManager em;

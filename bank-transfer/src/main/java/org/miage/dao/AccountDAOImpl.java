@@ -8,7 +8,7 @@ import org.miage.model.Account;
 import org.miage.model.Notaire;
 
 @ApplicationScoped
-public class AccountDAOImpl {
+public class AccountDAOImpl implements AccountDAO {
     @PersistenceContext(name = "mysql")
     EntityManager em;
 
@@ -24,7 +24,7 @@ public class AccountDAOImpl {
 
     //@Override
     @Transactional
-    public Account createNewCustomer(int id, float balance, Notaire notaire) {
+    public Account createNewAccount(int id, float balance, Notaire notaire) {
         Account c = new Account(id, balance, notaire);
         em.persist(c);
         return c;

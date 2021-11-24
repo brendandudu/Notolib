@@ -7,14 +7,14 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @ApplicationScoped
-public class NotaireDAOImpl {
+public class NotaireDAOImpl implements NotaireDAO{
 
     @PersistenceContext(name = "mysql")
     EntityManager em;
 
-    //@Override
-    @Transactional
-    public Notaire createNewClient(String fname, String lname, String email, String phone, Bank bank){
+
+    @Override
+    public Notaire createNewNotaire(String fname, String lname, String email, String phone, Bank bank) {
         Notaire notaire = new Notaire(fname, lname, email, phone, bank);
         em.persist(notaire);
         return notaire;
