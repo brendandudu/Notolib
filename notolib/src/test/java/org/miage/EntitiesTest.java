@@ -40,6 +40,7 @@ public class EntitiesTest {
     public void addNotary() {
         Notary e = new Notary();
         em.persist(e);
+
     }
 
     @Test
