@@ -1,5 +1,6 @@
 package org.miage.model;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -22,6 +23,7 @@ public class Notary extends Person{
     private Collection<TimeSlot> timeSlot;
 
     @XmlTransient
+    @JsonbTransient
     public Collection<TimeSlot> getTimeSlot() {
         return timeSlot;
     }

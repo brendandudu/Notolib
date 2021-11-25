@@ -2,6 +2,7 @@ package org.miage.service;
 
 import org.miage.dao.BookingDAO;
 import org.miage.dao.IncompatibleDayOfWeekException;
+import org.miage.dao.NotAcquirerIdException;
 import org.miage.dao.PersonDAO;
 import org.miage.model.Acquirer;
 import org.miage.model.Booking;
@@ -20,7 +21,7 @@ public class BookingServiceImpl implements BookingService{
 
 
     @Override
-    public void bookOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException {
+    public void bookOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
         bookingDAO.bookTimeSlotOnDate(timeSlotId, acquirerId, date);
     }
 
