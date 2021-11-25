@@ -22,19 +22,7 @@ public class Acquiror {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
-    @ManyToOne
-    @JoinColumn(name = "bank_id")
-    private Bank bank;
-
-    public Acquiror(String fname, String lname, String email, String phone, Bank bank) {
-    }
-
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
+    public Acquiror(String fname, String lname, String email, String phone) {
     }
 
     public String getPhone() {

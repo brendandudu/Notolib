@@ -5,6 +5,7 @@ import org.miage.model.Acquiror;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
@@ -29,5 +30,12 @@ public class AccountDAOImpl implements AccountDAO {
         Account c = new Account(id, balance, acquiror);
         em.persist(c);
         return c;
+    }
+
+    @Override
+    @Transactional
+    public Account findAccountByRib(int id) {
+        Account a = (Account) em.createQuery("Select a from Account a where a.id=:id").setParameter("id", id).getSingleResult();
+        return a;
     }
 }

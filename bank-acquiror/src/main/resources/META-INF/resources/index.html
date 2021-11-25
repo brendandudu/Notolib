@@ -109,63 +109,38 @@
 <body>
 
 <div class="banner lead">
-    Your new Cloud-Native application is ready!
+    Test du formulaire
 </div>
 
-<div class="container">
-    <div class="left-column">
-        <p class="lead"> Congratulations, you have created a new Quarkus cloud application.</p>
+<form onsubmit="sendData()">
+    <label>RIB Acquéreur</label>
+    <input type="text" id="acquiror_rib">
 
-        <h2>What is this page?</h2>
+    <label>RIB Notaire</label>
+    <input type="text" id="notary_rib">
 
-        <p>This page is served by Quarkus. The source is in
-            <code>src/main/resources/META-INF/resources/index.html</code>.</p>
+    <label>Appel de fonds</label>
+    <input type="text" id="appel_fond">
 
-        <h2>What are your next steps?</h2>
+    <input type="submit" value="Envoyer">
+</form>
 
-        <p>If not already done, run the application in <em>dev mode</em> using: <code>./mvnw compile quarkus:dev</code>.
-        </p>
-        <ul>
-            <li>Your static assets are located in <code>src/main/resources/META-INF/resources</code>.</li>
-            <li>Configure your application in <code>src/main/resources/application.properties</code>.</li>
-            <li>Quarkus now ships with a <a href="/q/dev/">Dev UI</a> (available in dev mode only)</li>
-            <li>Play with the provided code located in <code>src/main/java</code>:</li>
-        </ul>
-        <div class="provided-code">
-            <h3>RESTEasy JAX-RS</h3>
-            <p>Easily start your RESTful Web Services</p>
-            <p><code>@Path: <a href="/hello" class="path-link" target="_blank">/hello</a></code></p>
-            <p><a href="https://quarkus.io/guides/getting-started#the-jax-rs-resources" class="guide-link"
-                  target="_blank">Related guide section...</a></p>
-        </div>
-
-    </div>
-    <div class="right-column">
-        <div class="right-section">
-            <h3>Application</h3>
-            <ul>
-                <li>GroupId: <code>com.example</code></li>
-                <li>ArtifactId: <code>bank-acquiror</code></li>
-                <li>Version: <code>1.0-SNAPSHOT</code></li>
-                <li>Quarkus Version: <code>2.5.0.Final</code></li>
-            </ul>
-        </div>
-        <div class="right-section">
-            <h3>Do you like Quarkus?</h3>
-            <ul>
-                <li>Go give it a star on <a href="https://github.com/quarkusio/quarkus">GitHub</a>.</li>
-            </ul>
-        </div>
-        <div class="right-section">
-            <h3>More reading</h3>
-            <ul>
-                <li><a href="https://quarkus.io/guides/maven-tooling" target="_blank">Setup your IDE</a></li>
-                <li><a href="https://quarkus.io/guides/getting-started" target="_blank">Getting started</a></li>
-                <li><a href="https://quarkus.io/guides/" target="_blank">All guides</a></li>
-                <li><a href="https://quarkus.io" target="_blank">Quarkus Web Site</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 </body>
+<script>
+    function sendData(event) {
+
+        let acquiror_rib = document.getElementById("acquiror_rib").value;
+        let notary_rib = document.getElementById("notary_rib").value;
+        let appel_fonds = document.getElementById("appel_fond").value;
+
+        var data = {
+            "first_name"  :  appel_fonds,
+            "last_name"   :  acquiror_rib,
+            "online"      :  notary_rib
+        }
+
+        alert(data);
+
+    }
+</script>
 </html>

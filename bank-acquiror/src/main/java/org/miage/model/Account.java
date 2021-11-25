@@ -14,10 +14,6 @@ public class Account {
     private Double balance;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "bank_id", nullable = false)
-    private Bank bank;
-
-    @ManyToOne(optional = false)
     @JoinColumn(name = "acquiror_id", nullable = false)
     private Acquiror acquiror;
 
@@ -35,13 +31,6 @@ public class Account {
         this.acquiror = acquiror;
     }
 
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
 
     public Double getBalance() {
         return balance;
