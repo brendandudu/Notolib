@@ -42,7 +42,7 @@ public class BookingResource {
     }
 
     @Path("/user/{personId}/bookings")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     public Collection<Booking> getBookings(@PathParam("personId") int personId){
         return bookingService.getAllBookings(personId);
