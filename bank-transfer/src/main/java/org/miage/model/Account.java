@@ -14,10 +14,6 @@ public class Account {
     private Double balance;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "bank_id", nullable = false)
-    private Bank bank;
-
-    @ManyToOne(optional = false)
     @JoinColumn(name = "notaire_id", nullable = false)
     private Notaire notaire;
 
@@ -35,14 +31,6 @@ public class Account {
 
     public void setNotaire(Notaire notaire) {
         this.notaire = notaire;
-    }
-
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
     }
 
     public Double getBalance() {

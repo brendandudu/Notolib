@@ -1,10 +1,8 @@
 package org.miage.dao;
-import org.miage.model.Bank;
 import org.miage.model.Notaire;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 @ApplicationScoped
 public class NotaireDAOImpl implements NotaireDAO{
@@ -14,8 +12,8 @@ public class NotaireDAOImpl implements NotaireDAO{
 
 
     @Override
-    public Notaire createNewNotaire(String fname, String lname, String email, String phone, Bank bank) {
-        Notaire notaire = new Notaire(fname, lname, email, phone, bank);
+    public Notaire createNewNotaire(String fname, String lname, String email, String phone) {
+        Notaire notaire = new Notaire(fname, lname, email, phone);
         em.persist(notaire);
         return notaire;
     }
