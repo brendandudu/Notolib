@@ -47,7 +47,7 @@ public class TimeSlot {
         this.endTime = endTime;
     }
 
-    public TimeSlot(){};
+    public TimeSlot(int notaryId, WeekDay weekDay, LocalTime startTime, LocalTime endTime){};
 
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     public LocalTime getEndTime() {

@@ -17,8 +17,9 @@ public class NotaryDAOImpl implements PersonDAO{
 
     @Override
     public Notary findByEmail(String email) {
-        return null;
-    } //TODO
+        Notary n = (Notary) em.createQuery("Select n from Notary n where n.email=:email").setParameter("email",email).getSingleResult();
+        return n;
+    }
 
     @Override
     public Notary createNew(String fname, String lname, String email, String phone) {
