@@ -3,7 +3,6 @@ package org.miage.resources;
 import org.miage.dao.NotNotaryIdException;
 import org.miage.model.TimeSlot;
 import org.miage.service.TimeSlotService;
-import org.miage.dao.WeekDay;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -29,8 +28,10 @@ public class TimeSlotResource {
     @Path("/{notaryId}/weekDay/{weekDay}/{startTime}/{endTime}")
     @Transactional
     @POST
-    public void createTimeSlot(@PathParam("notaryId") int notaryId, @PathParam("weekDay") String weekDay, @PathParam("startTime") LocalTime startTime, @PathParam("endTime") LocalTime endTime) {
-            timeSlotService.createTimeSlot(notaryId, weekDay, startTime, endTime);
+    public void createTimeSlot(@PathParam("notaryId") int notaryId, @PathParam("weekDay") String weekDay, @PathParam("startTime") String startTime, @PathParam("endTime") String endTime) {
+        LocalTime start= LocalTime.parse(startTime);
+        LocalTime end= LocalTime.parse(endTime);
+            timeSlotService.createTimeSlot(notaryId, weekDay, start, end);
     }
 
     @Path("/{notaryId}/timeslots")
@@ -48,8 +49,9 @@ public class TimeSlotResource {
     @Path("/date/{date}")
     @Produces(MediaType.APPLICATION_XML)
     @GET
-    public Collection<TimeSlot> getAvailableTimeSlotAtDate(@PathParam("date") LocalDate date){
-        return timeSlotService.getAvailableTimeSlotAtDate(date);
+    public Collection<TimeSlot> getAvailableTimeSlotAtDate(@PathParam("date") String date){
+        LocalDate localDate = LocalDate.parse(date);
+        return timeSlotService.getAvailableTimeSlotAtDate(localDate);
     }
 
 
