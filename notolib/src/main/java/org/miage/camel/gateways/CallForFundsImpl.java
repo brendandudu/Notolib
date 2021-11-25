@@ -15,7 +15,7 @@ public class CallForFundsImpl implements CallForFundsGateway{
     @Override
     public void sendCallForFunds(float amount, String rib, String reason) {
         try (ProducerTemplate producer = context.createProducerTemplate()) {
-           producer.sendBody("direct:CFD", new CallForFunds(amount, rib, reason));
+           producer.sendBody("direct:CFF", new CallForFunds(amount, rib, reason));
         } catch (IOException e) {
             e.printStackTrace();
         }
