@@ -30,8 +30,8 @@ public class TimeSlotDAOImpl implements TimeSlotDAO {
     }
 
     @Override
-    public void createTimeSlot(Notary notary, WeekDay weekDay, LocalTime startTime, LocalTime endTime) {
-        TimeSlot ts = new TimeSlot(notary, weekDay, startTime, endTime);
+    public void createTimeSlot(int notaryId, WeekDay weekDay, LocalTime startTime, LocalTime endTime) {
+        TimeSlot ts = new TimeSlot(notaryId, weekDay, startTime, endTime);
         em.persist(ts);
     }
 

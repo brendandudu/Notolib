@@ -1,13 +1,14 @@
 package org.miage.model;
 
 import org.miage.dao.WeekDay;
-import org.miage.model.Person;
 import org.miage.resources.LocalTimeAdapter;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalTime;
+
 
 @NamedQueries({
         @NamedQuery(name = "getAllTimeSlotByNotaryId", query = "Select t from TimeSlot t where t.notary.id = :notaryId"),
@@ -18,6 +19,7 @@ import java.time.LocalTime;
 @Table(name = "time_slot", indexes = {
         @Index(name = "person_id", columnList = "person_id")
 })
+@XmlRootElement
 @Entity
 @XmlType(propOrder = {"id", "dayOfWeek", "startTime", "endTime", "notary"})
 public class TimeSlot {
@@ -47,7 +49,11 @@ public class TimeSlot {
         this.endTime = endTime;
     }
 
-    public TimeSlot(){};
+    public TimeSlot(int notaryId, WeekDay weekDay, LocalTime startTime, LocalTime endTime){};
+
+    public TimeSlot() {
+
+    }
 
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     public LocalTime getEndTime() {
