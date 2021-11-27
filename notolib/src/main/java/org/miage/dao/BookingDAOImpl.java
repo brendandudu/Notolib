@@ -1,5 +1,6 @@
 package org.miage.dao;
 
+import org.jboss.logging.Logger;
 import org.miage.model.*;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -10,8 +11,10 @@ import java.util.Collection;
 
 @ApplicationScoped
 public class BookingDAOImpl implements BookingDAO {
+
     @PersistenceContext
     EntityManager em;
+
 
     @Override
     public Booking findBookingById(int bookingId) {
@@ -29,7 +32,7 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public void bookTimeSlotOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
+    public Booking bookTimeSlotOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
         TimeSlot ts = em.find(TimeSlot.class, timeSlotId);
         Acquirer acquirer = em.find(Acquirer.class, acquirerId);
 
@@ -39,7 +42,9 @@ public class BookingDAOImpl implements BookingDAO {
             throw new IncompatibleDayOfWeekException();
 
         Booking b = new Booking(new BookingId(acquirer, ts, date));
+
         em.persist(b);
+        return b;
     }
 
     @Override

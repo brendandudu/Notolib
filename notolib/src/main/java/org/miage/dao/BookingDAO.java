@@ -9,7 +9,7 @@ public interface BookingDAO {
 
     Booking findBookingById(int bookingId);
     void cancelBooking(int timeSlotId, int acquirer, LocalDate date);
-    void bookTimeSlotOnDate(int timeSlotId, int acquirer, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException;
+    Booking bookTimeSlotOnDate(int timeSlotId, int acquirer, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException;
     Collection<Booking> getAllBookings (int personId);
     Collection<Booking> getBookingsByDate(int personId, LocalDate date);
 }
