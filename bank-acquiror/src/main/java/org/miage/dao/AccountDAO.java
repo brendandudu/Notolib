@@ -4,7 +4,7 @@ import org.miage.model.Acquiror;
 
 
 public interface AccountDAO {
-    Account createNewAccount(int id, float balance, Acquiror acquiror);
+    Account createNewAccount(int id, float balance, Acquiror acquiror, String rib);
 
-    Account findAccountByRib(int rib);
+    Account findAccountByEmail(String email);
 }

@@ -14,28 +14,17 @@ public class AccountDAOImpl implements AccountDAO {
     @PersistenceContext(name = "mysql")
     EntityManager em;
 
-    /*@Override
-    public Account findClient(Client client) { throws AccountNotFoundException
-        try {
-            Account c = (Account) em.createQuery("Select c from Account c where c.client=:client").setParameter("client", client).getSingleResult();
-            return c;
-        }
-        catch (NoResultException e) { throw new AcccountNotFoundException();
-        }
-    }*/
-
-
     @Override
-    public Account createNewAccount(int id, float balance, Acquiror acquiror) {
-        Account c = new Account(id, balance, acquiror);
+    public Account createNewAccount(int id, float balance, Acquiror acquiror, String rib) {
+        Account c = new Account(id, balance, acquiror, rib);
         em.persist(c);
         return c;
     }
 
     @Override
     @Transactional
-    public Account findAccountByRib(int id) {
-        Account a = (Account) em.createQuery("Select a from Account a where a.id=:id").setParameter("id", id).getSingleResult();
+    public Account findAccountByEmail(String email) {
+        Account a = (Account) em.createQuery("Select a from Account a where a.acquirorEmail=:email").setParameter("email", email).getSingleResult();
         return a;
     }
 }

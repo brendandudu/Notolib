@@ -1,9 +1,11 @@
 package org.miage.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Table(name = "acquiror")
 @Entity
+@XmlRootElement
 public class Acquiror {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,10 @@ public class Acquiror {
     private String phone;
 
     public Acquiror(String fname, String lname, String email, String phone) {
+    }
+
+    public Acquiror() {
+
     }
 
     public String getPhone() {

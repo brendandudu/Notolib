@@ -13,22 +13,34 @@ public class Account {
     @Column(name = "balance", nullable = false)
     private Double balance;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "acquiror_id", nullable = false)
-    private Acquiror acquiror;
 
-    public Account(int id, float balance, Acquiror acquiror) {
+    @Column(name = "rib", nullable = false, length = 5)
+    private String rib;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "acquiror_email", nullable = false)
+    private Acquiror acquirorEmail;
+
+    public Acquiror getAcquirorEmail() {
+        return acquirorEmail;
+    }
+
+    public void setAcquirorEmail(Acquiror acquirorEmail) {
+        this.acquirorEmail = acquirorEmail;
+    }
+
+    public String getRib() {
+        return rib;
+    }
+
+    public void setRib(String rib) {
+        this.rib = rib;
+    }
+
+    public Account(int id, float balance, Acquiror acquiror, String rib) {
     }
     public Account(){
 
-    }
-
-    public Acquiror getAcquiror() {
-        return acquiror;
-    }
-
-    public void setAcquiror(Acquiror acquiror) {
-        this.acquiror = acquiror;
     }
 
 
