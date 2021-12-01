@@ -18,24 +18,26 @@ public class AccountDAOImpl implements AccountDAO {
             Account c = (Account) em.createQuery("Select c from Account c where c.client=:client").setParameter("client", client).getSingleResult();
             return c;
         }
-        catch (NoResultException e) { throw new AcccountNotFoundException();
+        catch (NoResultException e) { throw new AccountNotFoundException();
         }
     }*/
 
     @Override
     @Transactional
-    public Account findAccountById(int id) {
-        String rib;
-        Account c = (Account) em.createQuery("Select c from Account c where c.id=:id").setParameter("id", id).getSingleResult();
+    public Account findAccountByEmail(String email) {
+        Account c = (Account) em.createQuery("Select a from Account a where a.notaire_email=:email").setParameter("email", email).getSingleResult();
         return c;
-        //rib = Integer.toString(c) + "25";
-        //return rib;
     }
+    //rib = Integer.toString(c) + "25";
+    //return rib;
+
+
+
 
     @Override
     @Transactional
-    public Account createNewAccount(int id, float balance, Notaire notaire) {
-        Account c = new Account(id, balance, notaire);
+    public Account createNewAccount(int id, float balance, Notaire notaire, String rib) {
+        Account c = new Account(id, balance, notaire, rib);
         em.persist(c);
         return c;
     }

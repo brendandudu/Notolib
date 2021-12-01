@@ -1,8 +1,11 @@
 package org.miage.dao;
+import org.miage.exception.NotaireNotFoundException;
 import org.miage.model.Notaire;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import org.miage.exception.NotaireNotFoundException;
 
 @ApplicationScoped
 public class NotaireDAOImpl implements NotaireDAO{
