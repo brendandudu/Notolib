@@ -2,24 +2,24 @@ package dto;
 
 public class CallForFunds {
 
-    private float amount;
+    private double amount;
     private String rib;
     private String reason;
 
     public CallForFunds() {
     }
 
-    public CallForFunds(float amount, String rib, String reason) {
+    public CallForFunds(double amount, String rib, String reason) {
         this.amount = amount;
         this.rib = rib;
         this.reason = reason;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -37,5 +37,14 @@ public class CallForFunds {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    @Override
+    public String toString() {
+        return "CallForFunds{" +
+                "amount=" + amount +
+                ", rib='" + rib + '\'' +
+                ", reason='" + reason + '\'' +
+                '}';
     }
 }
