@@ -2,14 +2,14 @@ package dto;
 
 public class CallForFunds {
 
-    private double amount;
+    private float amount;
     private String rib;
     private String reason;
 
     public CallForFunds() {
     }
 
-    public CallForFunds(double amount, String rib, String reason) {
+    public CallForFunds(float amount, String rib, String reason) {
         this.amount = amount;
         this.rib = rib;
         this.reason = reason;
@@ -19,7 +19,7 @@ public class CallForFunds {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
