@@ -10,18 +10,19 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @ApplicationScoped
-public class NotaryDAOImpl implements NotaryDAO{
+public class NotaryDAOImpl implements PersonDAO{
 
     @PersistenceContext
     EntityManager em;
 
     @Override
-    public Notary findNotaryByEmail(String email) {
-        return null;
-    } //TODO
+    public Notary findByEmail(String email) {
+        Notary n = (Notary) em.createQuery("Select n from Notary n where n.email=:email").setParameter("email",email).getSingleResult();
+        return n;
+    }
 
     @Override
-    public Notary createNewNotary(String fname, String lname, String email, String phone) {
+    public Notary createNew(String fname, String lname, String email, String phone) {
         Notary a = new Notary(fname, lname, email, phone);
         em.persist(a);
         return a;

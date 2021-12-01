@@ -1,12 +1,14 @@
 package org.miage.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Collection;
 
 @Table(name = "person")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="person_type")
 @Entity
+@XmlType(propOrder = {"id", "firstName", "lastName", "email", "phoneNumber"})
 public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
