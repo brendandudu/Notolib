@@ -113,7 +113,7 @@
 </div>
 
 
-    <label>RIB Acquéreur</label>
+   <!-- <label>RIB Acquéreur</label>
     <input type="text" id="acquiror_rib">
 
     <label>RIB Notaire</label>
@@ -122,12 +122,12 @@
     <label>Appel de fonds</label>
     <input type="text" id="appel_fond">
 
-    <input type="button" value="Envoyer" onclick="sendData()">
+    <input type="button" value="Envoyer" onclick="sendData()">-->
 
 
 </body>
 <script>
-    function sendData(event) {
+    /*function sendData(event) {
 
         let acquiror_rib = document.getElementById("acquiror_rib").value;
         let notary_rib = document.getElementById("notary_rib").value;
@@ -137,18 +137,18 @@
             "first_name"  :  appel_fonds,
             "last_name"   :  acquiror_rib,
             "online"      :  notary_rib
-        }*/
+        }
 
         var data = {
             "acquirerEmail"  :  notary_rib,
             "notaryEmail"   :  acquiror_rib,
         }
-        
+
         let request = new XMLHttpRequest();
 
         request.open("POST", "/fund/call/createFundCall");
         request.setRequestHeader("Content-Type", "application/json");
         request.send(JSON.stringify(data));
-    }
+    }*/
 </script>
 </html>
