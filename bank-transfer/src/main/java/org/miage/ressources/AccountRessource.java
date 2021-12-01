@@ -1,6 +1,5 @@
 package org.miage.ressources;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
