@@ -1,5 +1,6 @@
 INSERT INTO person (person_type,first_name,last_name,email,phone_number)
 VALUES
+  ("N","Notary","Notary","notary@gmail.com","06 97 95 28 15"),
   ("N","Reese","Velez","rutrum@yahoo.org","06 97 95 28 15"),
   ("N","Orlando","Ware","diam.luctus@aol.org","04 33 77 18 84"),
   ("N","Kimberley","Cantu","molestie.in@yahoo.couk","07 33 51 73 31"),
@@ -20,6 +21,7 @@ VALUES
   ("N","Yoshi","Haley","risus.duis@yahoo.org","06 93 28 85 57"),
   ("N","Forrest","Branch","urna.suscipit@protonmail.ca","01 34 44 31 15"),
   ("N","Malcolm","Gomez","in.mi@google.edu","03 88 58 50 44"),
+  ("A","Acquirer","Acquirer","acquirer@gmail.com","06 97 95 28 15"),
   ("A","Jasmine","Patrick","faucibus.lectus@aol.com","03 91 86 04 55"),
   ("A","Plato","Harris","natoque@outlook.com","02 24 73 15 78"),
   ("A","Charissa","Todd","magna.a@protonmail.ca","05 38 15 89 24"),

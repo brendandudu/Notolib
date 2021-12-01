@@ -38,4 +38,13 @@ public class Booking {
     public void setAmount(float amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "acquirerEmail='" + acquirerEmail + '\'' +
+                ", notaryEmail='" + notaryEmail + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }
