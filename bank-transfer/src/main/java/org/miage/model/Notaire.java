@@ -22,24 +22,13 @@ public class Notaire {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
-    @ManyToOne
-    @JoinColumn(name = "bank_id")
-    private Bank bank;
 
-    public Notaire(String fname, String lname, String email, String phone, Bank bank) {
+    public Notaire(String fname, String lname, String email, String phone) {
 
     }
 
     public Notaire() {
 
-    }
-
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
     }
 
     public String getPhone() {
