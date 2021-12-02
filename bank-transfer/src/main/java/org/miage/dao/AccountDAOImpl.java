@@ -12,26 +12,13 @@ public class AccountDAOImpl implements AccountDAO {
     @PersistenceContext(name = "mysql")
     EntityManager em;
 
-    /*@Override
-    public Account findClient(Client client) { throws AccountNotFoundException
-        try {
-            Account c = (Account) em.createQuery("Select c from Account c where c.client=:client").setParameter("client", client).getSingleResult();
-            return c;
-        }
-        catch (NoResultException e) { throw new AccountNotFoundException();
-        }
-    }*/
 
     @Override
     @Transactional
-    public Account findAccountByEmail(String email) {
-        Account c = (Account) em.createQuery("Select a from Account a where a.notaire_email=:email").setParameter("email", email).getSingleResult();
+    public Account findAccountById(int id) {
+        Account c = (Account) em.createQuery("Select a from Account a where a.notary_id=:id").setParameter("id", id).getSingleResult();
         return c;
     }
-    //rib = Integer.toString(c) + "25";
-    //return rib;
-
-
 
 
     @Override
@@ -41,8 +28,12 @@ public class AccountDAOImpl implements AccountDAO {
         em.persist(c);
         return c;
     }
-    /*@Override
-    public List getAccounts(int bank_id){
-        return em.createQuery("SELECT a FROM Account a where a.bank=:bank").setParameter("bank", bank_id).getResultList();
-    }*/
+
+    @Override
+    @Transactional
+    public Account findRibByEmail(String email) {
+        Account c = (Account) em.createQuery("Select a from Account a where a.notary_id.email=:email").setParameter("email", email).getSingleResult();
+        return c;
+    }
+
 }
