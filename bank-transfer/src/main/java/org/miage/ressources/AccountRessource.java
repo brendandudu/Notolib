@@ -2,7 +2,6 @@ package org.miage.ressources;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-
 import org.miage.model.Account;
 import org.miage.service.AccountService;
 import javax.ws.rs.Produces;
@@ -16,12 +15,18 @@ public class AccountRessource {
     AccountService accountService;
 
 
+    @Path("/account/{id}")
+    @Produces(MediaType.APPLICATION_XML)
+    @GET
+    public Account findAccountById(@PathParam("id") int id){
+        return accountService.findAccountById(id);
+    }
+
     @Path("/account/{email}")
     @Produces(MediaType.APPLICATION_XML)
     @GET
-    public Account findAccountByEmail(@PathParam("email") String email){
-        return accountService.findAccountByEmail(email);
+    public Account findRibByEmail(@PathParam("email") String email){
+        return accountService.findRibByEmail(email);
     }
-
 
 }
