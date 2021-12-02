@@ -25,7 +25,7 @@ public class AccountRessource {
     @Path("/account/{email}")
     @Produces(MediaType.APPLICATION_XML)
     @GET
-    public Account findRibByEmail(@PathParam("email") String email){
+    public String findRibByEmail(@PathParam("email") String email){
         return accountService.findRibByEmail(email);
     }
 

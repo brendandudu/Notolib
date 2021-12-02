@@ -6,6 +6,6 @@ import org.apache.camel.Exchange;
 
 public interface TransferService {
 
-    Transfer createTransferByCFF(Exchange exchange);
+    Transfer emitTransferByCFF(Exchange exchange);
 
 }

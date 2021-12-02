@@ -4,6 +4,7 @@ import dto.CallForFunds;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.miage.service.AccountService;
 import org.miage.service.TransferService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,25 +20,20 @@ public class CamelRoutes extends RouteBuilder {
     String suffix;
 
     @Inject
-    BeanTest beanTest;
+    AccountService accountService;
 
     @Inject
     BeanTest2 beanTest2;
 
-    @Inject
-    CamelContext camelContext;
-
     @Override
     public void configure() throws Exception {
-
-        //camelContext.setTracing(true);
 
         from("jms:queue:BKRS/" + suffix + "/CFF")
                 .unmarshal().json(CallForFunds.class)
                 //.bean(loanService)//TODO Creer un prêt
-                .bean(transferService) //TODO Creer et return un virement
-                .log("${body} - ${header.bankCreditorRoute}");
-                //.to("jms:queue:BKRS:bankNotaire:transfer");
+                .bean(transferService, "emitTransferByCFF")
+                .log("${body} - ${header.bankCreditorRoute}")
+                .toD("jms:queue:BKRS/${header.bankCreditorRoute}/transfer");
 
 
 
@@ -48,10 +44,10 @@ public class CamelRoutes extends RouteBuilder {
 
         //ajouter aussi dans l'autre bank
         from("jms:queue:BKRS/" + suffix + "/RIB")
-                .bean(beanTest); //TODO retourner un rib par l'email
+                .bean(accountService, "emitRibByEmail"); //TODO retourner un rib par l'email
 
         from("jms:queue:BKRS/FR129/RIB")
-                .bean(beanTest2); //TODO retourner un rib par l'email
+                .bean(accountService, "emitRibByEmail"); //TODO retourner un rib par l'email
 
     }
 }
