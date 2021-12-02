@@ -2,9 +2,9 @@ package org.miage.model;
 
 import javax.persistence.*;
 
-@Table(name = "notaire")
+@Table(name = "client")
 @Entity
-public class Notaire {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,11 +23,11 @@ public class Notaire {
     private String phone;
 
 
-    public Notaire(String fname, String lname, String email, String phone) {
+    public Client(String fname, String lname, String email, String phone) {
 
     }
 
-    public Notaire() {
+    public Client() {
 
     }
 

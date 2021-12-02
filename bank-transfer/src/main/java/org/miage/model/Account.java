@@ -14,8 +14,8 @@ public class Account {
     private Double balance;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "notary_id", nullable = false)
-    private Notaire notary_id;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client_id;
 
     @Column(name = "rib", nullable = false, length = 5)
     private String rib;
@@ -28,7 +28,7 @@ public class Account {
         this.rib = rib;
     }
 
-    public Account(int id, float balance, Notaire notaire, String rib) {
+    public Account(int id, float balance, Client notaire, String rib) {
 
     }
 
@@ -44,8 +44,8 @@ public class Account {
         return id;
     }
 
-    public Notaire getNotary_id() {
-        return notary_id;
+    public Client getClient_id() {
+        return client_id;
     }
 
     public void setBalance(Double balance) {
@@ -56,7 +56,7 @@ public class Account {
         this.id = id;
     }
 
-    public void setNotary_id(Notaire notary_id) {
-        this.notary_id = notary_id;
+    public void setClient_id(Client client_id) {
+        this.client_id = client_id;
     }
 }
