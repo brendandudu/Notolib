@@ -44,7 +44,7 @@ public class CamelRoutes extends RouteBuilder {
 
         //ajouter aussi dans l'autre bank
         from("jms:queue:BKRS/" + suffix + "/RIB")
-                .bean(accountService, "emitRibByEmail"); //TODO retourner un rib par l'email
+                .bean(accountService, "emitRibByEmail");
 
         from("jms:queue:BKRS/FR129/RIB")
                 .bean(accountService, "emitRibByEmail"); //TODO retourner un rib par l'email

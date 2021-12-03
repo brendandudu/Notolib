@@ -1,6 +1,8 @@
 package org.miage.camel;
 
+import dto.CallForFunds;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.miage.camel.aggregations.CallForFoundAggregationStrategy;
 import org.miage.camel.aggregations.RibAggregationStrategy;
@@ -40,6 +42,9 @@ public class CamelRoutes extends RouteBuilder {
                 .marshal().json()
                 .log("CFF : ${header.bankAcquirerRoute}")
                 .toD("jms:queue:BKRS/${header.bankAcquirerRoute}/CFF")
+                /*.unmarshal().json(CallForFunds.class)
+                .setHeader(Exchange.FILE_NAME, constant("CFF_.txt"))
+                .to("file:data/CFF")*/
                 .end();
 
     }
