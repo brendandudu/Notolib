@@ -28,11 +28,11 @@ public class AccountDAOImpl implements AccountDAO {
         return c;
     }
 
-    /*@Override
+    @Override
     @Transactional
     public Account findRibByEmail(String email) {
-        Account c = (Account) em.createQuery("Select a from Account a where a.email=:email").setParameter("email", email).getSingleResult();
+        Account c = (Account) em.createQuery("Select a from Account a where a.client_id.email=:email").setParameter("email", email).getSingleResult();
         return c;
-    }*/
+    }
 
 }

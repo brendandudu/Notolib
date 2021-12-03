@@ -23,12 +23,10 @@ public class AccountRessource {
         return accountService.findAccountByClientId(client_id);
     }
 
-    /*@Path("/client/{email}")
+    @Path("/client/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public Account findRibByEmail(@PathParam("email") String email){
+    public Account findRibByEmail(@PathParam("email") String email) {
         return accountService.findRibByEmail(email);
     }
-    }*/
-
 }

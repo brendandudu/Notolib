@@ -4,5 +4,5 @@ import org.miage.model.Account;
 
 public interface AccountService {
     Account findAccountByClientId(int id);
-    //Account findRibByEmail(String email);
+    Account findRibByEmail(String email);
 }
