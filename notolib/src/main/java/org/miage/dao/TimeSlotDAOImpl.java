@@ -1,11 +1,13 @@
 package org.miage.dao;
 
+import org.jboss.logging.Logger;
 import org.miage.model.Notary;
 import org.miage.model.TimeSlot;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -14,6 +16,9 @@ import java.util.Collection;
 public class TimeSlotDAOImpl implements TimeSlotDAO {
     @PersistenceContext
     EntityManager em;
+
+    private static final Logger LOG = Logger.getLogger(TimeSlotDAOImpl.class);
+
 
     @Override
     public Collection<TimeSlot> getTimeSlotForNotary(int notaryId) throws NotNotaryIdException {
@@ -26,7 +31,9 @@ public class TimeSlotDAOImpl implements TimeSlotDAO {
 
     @Override
     public Collection<TimeSlot> getAvailableTimeSlotAtDate(LocalDate date) {
-        return em.createNamedQuery("getAvailableTimeSlotAtDate").setParameter("date", date).getResultList();
+        WeekDay wd = WeekDay.valueOf(date.getDayOfWeek().name());
+
+        return em.createNamedQuery("getAvailableTimeSlotAtDate").setParameter("date", date).setParameter("dayOfWeek", wd).getResultList();
     }
 
     @Override

@@ -46,10 +46,10 @@ public class TimeSlotResource {
         return null;
     }
 
-    @Path("/date/{date}")
-    @Produces(MediaType.APPLICATION_XML)
+    @Path("/find")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
-    public Collection<TimeSlot> getAvailableTimeSlotAtDate(@PathParam("date") String date){
+    public Collection<TimeSlot> getAvailableTimeSlotAtDate(@QueryParam("date") String date){
         LocalDate localDate = LocalDate.parse(date);
         return timeSlotService.getAvailableTimeSlotAtDate(localDate);
     }
