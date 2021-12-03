@@ -4,7 +4,7 @@ import org.miage.model.Client;
 
 
 public interface AccountDAO {
-    Account createNewAccount(int id, float balance, Client client, String rib);
-    Account findAccountById(int id);
-    Account findRibByEmail(String email);
+    Account createNewAccount(double balance, Client client);
+    Account findAccountByClientId(int client_id);
+    //Account findRibByEmail(String email);
 }
