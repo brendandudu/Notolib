@@ -7,4 +7,7 @@ public interface AccountDAO {
     Account createNewAccount(double balance, Client client);
     Account findAccountByClientId(int client_id);
     Account findRibByEmail(String email);
+
+    String findRibByAccountId(int id);
+
 }

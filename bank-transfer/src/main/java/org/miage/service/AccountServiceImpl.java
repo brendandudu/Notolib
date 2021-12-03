@@ -19,4 +19,7 @@ public class AccountServiceImpl implements AccountService {
     public Account findRibByEmail(String email) {
         return accountDAO.findRibByEmail(email);
     }
+    public String findRibByAccountId(int id) {
+        return accountDAO.findRibByAccountId(id);
+    }
 }

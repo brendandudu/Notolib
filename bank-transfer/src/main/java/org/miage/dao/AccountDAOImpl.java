@@ -16,8 +16,15 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     @Transactional
     public Account findAccountByClientId(int client_id) {
-        Account a = (Account) em.createQuery("Select a from Account a where a.client_id.id=:client_id").setParameter("client_id", client_id).getSingleResult();
+        Account a = (Account) em.createQuery("Select a from Account a where a.client.id=:client_id").setParameter("client_id", client_id).getSingleResult();
         return a;
+    }
+
+    @Override
+    public String findRibByAccountId(int id) {
+        Account a = (Account) em.createQuery("Select a from Account a where a.id=:id").setParameter("id", id).getSingleResult();
+        System.out.println(a.getRib());
+        return a.getRib();
     }
 
     @Override
@@ -34,5 +41,6 @@ public class AccountDAOImpl implements AccountDAO {
         Account c = (Account) em.createQuery("Select a from Account a where a.client_id.email=:email").setParameter("email", email).getSingleResult();
         return c;
     }
+
 
 }
