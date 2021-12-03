@@ -8,15 +8,15 @@ import org.miage.model.Account;
 public class AccountServiceImpl implements AccountService {
 
     @Inject
-    AccountDAO accountService;
+    AccountDAO accountDAO;
 
     @Override
-    public Account findAccountById(int id) {
-        return accountService.findAccountById(id);
+    public Account findAccountByClientId(int client_id) {
+        return accountDAO.findAccountByClientId(client_id);
     }
 
-    @Override
+    /*@Override
     public Account findRibByEmail(String email) {
-        return accountService.findRibByEmail(email);
-    }
+        return accountDAO.findRibByEmail(email);
+    }*/
 }

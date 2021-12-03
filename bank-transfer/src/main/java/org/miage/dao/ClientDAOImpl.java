@@ -1,8 +1,10 @@
 package org.miage.dao;
+import org.miage.model.Account;
 import org.miage.model.Client;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 @ApplicationScoped
 public class ClientDAOImpl implements ClientDAO {
@@ -16,5 +18,10 @@ public class ClientDAOImpl implements ClientDAO {
         Client client = new Client(fname, lname, email, phone);
         em.persist(client);
         return client;
+    }
+    @Override
+    @Transactional
+    public int findIdByEmail(String email) {
+        return (int) em.createQuery("Select c.id from Client c where c.email=:email").setParameter("email", email).getSingleResult();
     }
 }

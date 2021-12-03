@@ -15,25 +15,24 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     @Transactional
-    public Account findAccountById(int id) {
-        Account c = (Account) em.createQuery("Select a from Account a where a.client_id=:id").setParameter("id", id).getSingleResult();
-        return c;
+    public Account findAccountByClientId(int client_id) {
+        Account a = (Account) em.createQuery("Select a from Account a where a.client_id.id=:client_id").setParameter("client_id", client_id).getSingleResult();
+        return a;
     }
-
 
     @Override
     @Transactional
-    public Account createNewAccount(int id, float balance, Client client, String rib) {
-        Account c = new Account(id, balance, client, rib);
+    public Account createNewAccount(double balance, Client client) {
+        Account c = new Account(balance, client);
         em.persist(c);
         return c;
     }
 
-    @Override
+    /*@Override
     @Transactional
     public Account findRibByEmail(String email) {
-        Account c = (Account) em.createQuery("Select a from Account a where a.client_id.email=:email").setParameter("email", email).getSingleResult();
+        Account c = (Account) em.createQuery("Select a from Account a where a.email=:email").setParameter("email", email).getSingleResult();
         return c;
-    }
+    }*/
 
 }
