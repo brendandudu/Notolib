@@ -39,6 +39,7 @@ public class AccountRessource {
     @GET
     public Account findRibByEmail(@PathParam("email") String email){
         return accountService.findRibByEmail(email);
+    }
     }*/
 
 }
