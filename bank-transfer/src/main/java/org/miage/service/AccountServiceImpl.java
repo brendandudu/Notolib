@@ -15,8 +15,9 @@ public class AccountServiceImpl implements AccountService {
         return accountDAO.findAccountByClientId(client_id);
     }
 
-    /*@Override
-    public Account findRibByEmail(String email) {
-        return accountDAO.findRibByEmail(email);
-    }*/
+    @Override
+    public String findRibByAccountId(int id) {
+        return accountDAO.findRibByAccountId(id);
+    }
+
 }
