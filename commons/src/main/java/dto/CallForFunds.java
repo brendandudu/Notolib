@@ -15,7 +15,7 @@ public class CallForFunds {
         this.reason = reason;
     }
 
-    public double getAmount() {
+    public float getAmount() {
         return amount;
     }
 

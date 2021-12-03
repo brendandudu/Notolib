@@ -25,19 +25,22 @@ public class CamelRoutes extends RouteBuilder {
 
         //camelContext.setTracing(true);
 
-        from("jms:queue:BKRS_Booking")
+        from("jms:queue:BKRS/booking")
                 .log("${body}")
                 .split(jsonpath("$.*"), callForFoundAggregationStrategy).streaming()    //For each line of json
                 .choice().when(body().contains("@"))    //If it's an email --> get RIB
                 .multicast(ribAggregationStrategy)
-                .to("jms:queue:BKRS_RIB_BankA?exchangePattern=InOut")
-                .to("jms:queue:BKRS_RIB_BankB?exchangePattern=InOut")
+                .to("jms:queue:BKRS/FR121/RIB?exchangePattern=InOut")
+                .to("jms:queue:BKRS/FR129/RIB?exchangePattern=InOut")
                 .end()
                 .log("RIB found : ${body}")
                 .endChoice()
                 .end().end()
-                .log("List of RIB's with amount ${body}");
-                //.toD("direct:${header.bankAcquirerRoute}");
+                .log("CFF : ${body}")
+                .marshal().json()
+                .log("CFF : ${header.bankAcquirerRoute}")
+                .toD("jms:queue:BKRS/${header.bankAcquirerRoute}/CFF")
+                .end();
 
     }
 }

@@ -29,7 +29,7 @@ public class CallForFoundAggregationStrategy implements AggregationStrategy {
             if(list.size() == 3) {
                 String bankAcquirerRoute = ((String) list.get(0)).substring(0, 5); //Substring RIB to get bank number of acquirer
                 oldExchange.getIn().setHeader("bankAcquirerRoute", bankAcquirerRoute);
-                oldExchange.getIn().setBody(new CallForFunds((float) list.get(2), (String) list.get(0), "change reason"));
+                oldExchange.getIn().setBody(new CallForFunds(((Double) list.get(2)).floatValue(), (String) list.get(0), "change reason"));
             }
             return oldExchange;
         }

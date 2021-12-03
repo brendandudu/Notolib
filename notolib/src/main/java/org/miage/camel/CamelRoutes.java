@@ -20,7 +20,7 @@ public class CamelRoutes extends RouteBuilder {
 
         from("direct:booking")
                 .marshal().json()
-                .to("jms:queue:BKRS_Booking");
+                .to("jms:queue:BKRS/booking");
 
 
         /*from("jms:queue:BKRS_RIB_BankA?exchangePattern=InOut")

@@ -20,9 +20,7 @@ VALUES
   ("N","Liberty","Beach","dui.augue.eu@hotmail.net","05 11 28 94 49"),
   ("N","Yoshi","Haley","risus.duis@yahoo.org","06 93 28 85 57"),
   ("N","Forrest","Branch","urna.suscipit@protonmail.ca","01 34 44 31 15"),
-  ("N","Malcolm","Gomez","in.mi@google.edu","03 88 58 50 44"),
   ("A","Acquirer","Acquirer","acquirer@gmail.com","06 97 95 28 15"),
-  ("A","Jasmine","Patrick","faucibus.lectus@aol.com","03 91 86 04 55"),
   ("A","Plato","Harris","natoque@outlook.com","02 24 73 15 78"),
   ("A","Charissa","Todd","magna.a@protonmail.ca","05 38 15 89 24"),
   ("A","Constance","Nash","mollis.integer.tincidunt@icloud.net","06 81 21 72 47"),
@@ -45,6 +43,7 @@ VALUES
 
 INSERT INTO time_slot (day_of_week,start_time,end_time,person_id)
 VALUES
+    ("WEDNESDAY","10:23","16:03",1),
     ("WEDNESDAY","11:44","14:38",3),
     ("FRIDAY","13:45","14:08",11),
     ("THURSDAY","9:32","14:15",5),
