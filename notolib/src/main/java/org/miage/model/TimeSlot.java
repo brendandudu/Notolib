@@ -12,7 +12,7 @@ import java.time.LocalTime;
 
 @NamedQueries({
         @NamedQuery(name = "getAllTimeSlotByNotaryId", query = "Select t from TimeSlot t where t.notary.id = :notaryId"),
-        @NamedQuery(name = "getAvailableTimeSlotAtDate", query = "SELECT ts FROM TimeSlot ts WHERE ts.id NOT IN ( SELECT ts.id FROM Booking b JOIN b.id.timeSlot ts WHERE b.id.date = :date) AND ts.dayOfWeek = :dayOfWeek"),
+        @NamedQuery(name = "getAvailableTimeSlotAtDate", query = "SELECT ts FROM TimeSlot ts WHERE ts.id NOT IN ( SELECT ts.id FROM Booking b JOIN b.id.timeSlot ts WHERE b.id.date = :date) AND ts.dayOfWeek = :dayOfWeek ORDER BY ts.startTime ASC"),
 
 }
 )
