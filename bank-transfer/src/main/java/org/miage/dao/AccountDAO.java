@@ -1,4 +1,5 @@
 package org.miage.dao;
+import org.miage.exception.AccountNotFoundException;
 import org.miage.model.Account;
 import org.miage.model.Client;
 
@@ -13,10 +14,7 @@ public interface AccountDAO {
 
     void addBalance(Account account, double amount);
 
+    String findRibByEmail(String email) throws AccountNotFoundException;
 
-
-    String findRibByEmail(String email);
-
-    String findRibOrNullByEmail(String email);
-
+    Account findAccountbyRib(String rib);
 }

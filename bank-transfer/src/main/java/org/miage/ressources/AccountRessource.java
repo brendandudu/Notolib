@@ -4,6 +4,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.miage.exception.AccountNotFoundException;
 import org.miage.model.Account;
 import org.miage.service.AccountService;
 import javax.ws.rs.Produces;
@@ -36,7 +37,7 @@ public class AccountRessource {
     @Path("/client/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public String findRibByEmail(@PathParam("email") String email) {
+    public String findRibByEmail(@PathParam("email") String email) throws AccountNotFoundException {
         return accountService.findRibByEmail(email);
     }
 }

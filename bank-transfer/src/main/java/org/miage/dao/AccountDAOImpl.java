@@ -1,11 +1,14 @@
 package org.miage.dao;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.miage.exception.AccountNotFoundException;
 import org.miage.model.Account;
 import org.miage.model.Client;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
@@ -17,6 +20,8 @@ public class AccountDAOImpl implements AccountDAO {
     @ConfigProperty(name = "org.miage.idBank")
     String idBank;
 
+    @Inject
+    ClientDAO clientDAO;
 
     @Override
     @Transactional
@@ -47,16 +52,19 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     @Transactional
-    public String findRibByEmail(String email) {
-        return (String) em.createQuery("Select a.client.email from Account a where a.client.email=:email").setParameter("email", email).getSingleResult();
+    public String findRibByEmail(String email)  throws AccountNotFoundException {
+        try {
+            int account_id = (int) em.createQuery("Select a.id from Account a where a.client.email=:email").setParameter("email", email).getSingleResult();
+            return idBank + account_id;
+        }catch(NoResultException e){
+            throw new AccountNotFoundException();
+        }
+
     }
 
     @Override
-    @Transactional
-    public String findRibOrNullByEmail(String email) {
-        return (String) em.createQuery("Select a.client.email from Account a where a.client.email=:email").setParameter("email", email)
-                .getResultStream()
-                .findFirst()
-                .orElse(null);
+    public Account findAccountbyRib(String rib) {
+        int account_id = Integer.parseInt(rib.substring(6));
+        return em.find(Account.class, account_id);
     }
 }

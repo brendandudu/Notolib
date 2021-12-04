@@ -23,7 +23,7 @@ public class Account {
     @Column(name = "loan_balance")
     private Double loanBalance;
 
-    public Double getLoanBalance() {
+    public double getLoanBalance() {
         return loanBalance;
     }
 

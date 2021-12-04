@@ -4,18 +4,14 @@ import dto.CallForFunds;
 import dto.Transfer;
 import org.apache.camel.Exchange;
 import org.miage.dao.AccountDAO;
+import org.miage.exception.AccountNotFoundException;
 import org.miage.model.Account;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @ApplicationScoped
 public class AccountServiceImpl implements AccountService {
-
-    @PersistenceContext
-    EntityManager em;
 
     @Inject
     AccountDAO accountDAO;
@@ -26,23 +22,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String findRibByEmail(String email) {
+    public void createLoan(CallForFunds callForFunds) {
+        Account account = accountDAO.findAccountbyRib(callForFunds.getRib());
+        account.addLoanBalance(callForFunds.getAmount());
+    }
+
+    @Override
+    public String findRibByEmail(String email) throws AccountNotFoundException {
         return accountDAO.findRibByEmail(email);
     }
 
-
     @Override
-    public void createLoanBalance(Account account, double amount) {
-        accountDAO.createLoanBalance(account, amount);
-    }
-
-
-
-    @Override
-    public void emitRibByEmail(Exchange exchange) {
+    public void emitRibByEmail(Exchange exchange) throws AccountNotFoundException {
         String email = exchange.getIn().getBody(String.class);
 
-        String rib = accountDAO.findRibOrNullByEmail(email);
+        String rib = accountDAO.findRibByEmail(email);
         if (rib != null) {
             exchange.getMessage().setHeader("isInMyBank", true);
             exchange.getMessage().setBody(rib);
@@ -51,17 +45,8 @@ public class AccountServiceImpl implements AccountService {
         exchange.getMessage().setHeader("isInMyBank", false);
     }
 
-    /*@Override
-    public float addBalance(Account account,double amount, Exchange exchange){
-        double tr;
-        Transfer transfer  = exchange.getIn().getBody(Transfer.class);
-        tr = transfer.getAmount();
-        accountDAO.addBalance(account,tr,exchange)
-    }*/
-
     @Override
-    public float addBalance(Account account, Exchange exchange){
-        Transfer transfer  = exchange.getIn().getBody(Transfer.class);
-        return transfer.getAmount();
+    public void addBalance(Account account, Transfer transfer) {
+        account.addBalance(transfer.getAmount());
     }
 }
