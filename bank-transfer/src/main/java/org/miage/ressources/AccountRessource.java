@@ -23,23 +23,23 @@ public class AccountRessource {
     @Path("/client/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public Account findAccountByClientId(@PathParam("id") int client_id){
+    public Account findAccountByClientId(@PathParam("id") int client_id) {
         return accountService.findAccountByClientId(client_id);
     }
+
 
     @Path("/rib/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public String findRibByAccountId(@PathParam("id") int id){
-        return idBank+id;
+    public String findRibByAccountId(@PathParam("id") int id) {
+        return idBank + id;
     }
 
-    /*@Path("/client/{email}")
+
+    @Path("/client/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public Account findRibByEmail(@PathParam("email") String email){
+    public Account findRibByEmail(@PathParam("email") String email) {
         return accountService.findRibByEmail(email);
     }
-    }*/
-
 }
