@@ -1,6 +1,10 @@
 package org.miage.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @NamedQueries(
         {
@@ -8,6 +12,8 @@ import javax.persistence.*;
                 @NamedQuery(name = "getBookingsByPersonAndDate", query = "Select b from Booking b join b.id.timeSlot t where (b.id.acquirer.id = :personId or t.notary.id = :personId) AND b.id.date = :date")
         }
 )
+@XmlRootElement
+@XmlAccessorType( XmlAccessType.FIELD)
 @Table(name = "booking")
 @Entity
 public class Booking {

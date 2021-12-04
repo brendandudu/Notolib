@@ -26,11 +26,6 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public String findRibByAccountId(int id) {
-        return idBank + id;
-    }
-
-    @Override
     public void createLoanBalance(Account account, double amount) {
         account.addLoanBalance(amount);
         em.merge(account);
@@ -52,10 +47,16 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     @Transactional
-    public Account findRibByEmail(String email) {
-        Account c = (Account) em.createQuery("Select a from Account a where a.client.email=:email").setParameter("email", email).getSingleResult();
-        return c;
+    public String findRibByEmail(String email) {
+        return (String) em.createQuery("Select a.client.email from Account a where a.client.email=:email").setParameter("email", email).getSingleResult();
     }
 
-
+    @Override
+    @Transactional
+    public String findRibOrNullByEmail(String email) {
+        return (String) em.createQuery("Select a.client.email from Account a where a.client.email=:email").setParameter("email", email)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -1,13 +1,15 @@
 package org.miage.service;
-import javax.enterprise.context.RequestScoped;
+
+import org.apache.camel.Exchange;
+import org.miage.dao.AccountDAO;
+import org.miage.model.Account;
+
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.miage.dao.AccountDAO;
-import org.miage.model.Account;
-
-@RequestScoped
+@ApplicationScoped
 public class AccountServiceImpl implements AccountService {
 
     @PersistenceContext
@@ -22,21 +24,33 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account findRibByEmail(String email) {
+    public String findRibByEmail(String email) {
         return accountDAO.findRibByEmail(email);
     }
-    public String findRibByAccountId(int id) {
-        return accountDAO.findRibByAccountId(id);
-    }
+
 
     @Override
     public void createLoanBalance(Account account, double amount) {
-       accountDAO.createLoanBalance(account,amount);
+        accountDAO.createLoanBalance(account, amount);
+    }
+
+
+    @Override
+    public void emitRibByEmail(Exchange exchange) {
+        String email = exchange.getIn().getBody(String.class);
+
+        String rib = accountDAO.findRibOrNullByEmail(email);
+        if (rib != null) {
+            exchange.getMessage().setHeader("isInMyBank", true);
+            exchange.getMessage().setBody(rib);
+            return;
+        }
+        exchange.getMessage().setHeader("isInMyBank", false);
     }
 
     @Override
     public void addBalance(Account account, double amount) {
-        accountDAO.addBalance(account,amount);
+        accountDAO.addBalance(account, amount);
     }
 
 

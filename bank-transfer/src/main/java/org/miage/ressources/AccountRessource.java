@@ -5,7 +5,6 @@ import javax.ws.rs.Path;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.miage.model.Account;
-import org.miage.model.Client;
 import org.miage.service.AccountService;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -37,7 +36,7 @@ public class AccountRessource {
     @Path("/client/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public Account findRibByEmail(@PathParam("email") String email) {
+    public String findRibByEmail(@PathParam("email") String email) {
         return accountService.findRibByEmail(email);
     }
 }

@@ -1,5 +1,6 @@
 package org.miage.dao;
 
+import org.jboss.logging.Logger;
 import org.miage.model.*;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -10,8 +11,10 @@ import java.util.Collection;
 
 @ApplicationScoped
 public class BookingDAOImpl implements BookingDAO {
+
     @PersistenceContext
     EntityManager em;
+
 
     @Override
     public Booking findBookingById(int bookingId) {
@@ -19,17 +22,29 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public void cancelBooking(int bookingId) {
-        Booking b = em.find(Booking.class, bookingId);
+    public void cancelBooking(int timeSlotId, int acquirerId, LocalDate date) {
+        Booking b = (Booking) (em.createQuery("Select b from Booking b where b.id.timeSlot.id = :timeSlotId and b.id.acquirer.id = :acquirerId and b.id.date = :date")
+                .setParameter("timeSlotId", timeSlotId)
+                .setParameter("acquirerId", acquirerId)
+                .setParameter("date", date)
+                .getSingleResult());
         em.remove(b);
     }
 
     @Override
-    public void bookTimeSlotAtDate(TimeSlot ts, Acquirer acquirer, LocalDate date) throws IncompatibleDayOfWeekException {
+    public Booking bookTimeSlotOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
+        TimeSlot ts = em.find(TimeSlot.class, timeSlotId);
+        Acquirer acquirer = em.find(Acquirer.class, acquirerId);
+
+        if(acquirer == null)
+            throw new NotAcquirerIdException();
         if(! ts.getDayOfWeek().toString().equals(date.getDayOfWeek().name()))
             throw new IncompatibleDayOfWeekException();
 
         Booking b = new Booking(new BookingId(acquirer, ts, date));
+
+        em.persist(b);
+        return b;
     }
 
     @Override

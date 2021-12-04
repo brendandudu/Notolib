@@ -19,4 +19,11 @@ public class BookingDAOTest {
         Notary e = new Notary();
         em.persist(e);
     }
+
+    @Test
+    @Transactional
+    public void bookOnDate() {
+        Notary e = new Notary();
+        em.persist(e);
+    }
 }

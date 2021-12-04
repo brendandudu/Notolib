@@ -38,4 +38,13 @@ public class CallForFunds {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
+    @Override
+    public String toString() {
+        return "CallForFunds{" +
+                "amount=" + amount +
+                ", rib='" + rib + '\'' +
+                ", reason='" + reason + '\'' +
+                '}';
+    }
 }

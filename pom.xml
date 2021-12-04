@@ -13,6 +13,7 @@
     <module>bank-transfer</module>
     <module>notolib</module>
       <module>commons</module>
+    <module>fund_system</module>
   </modules>
 
 </project>

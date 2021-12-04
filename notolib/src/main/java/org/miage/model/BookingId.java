@@ -1,13 +1,17 @@
 package org.miage.model;
 
 import org.hibernate.Hibernate;
+import org.miage.resources.LocalDateAdapter;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Embeddable
+@XmlType(propOrder = {"date", "acquirer", "timeSlot"})
 public class BookingId implements Serializable {
     private static final long serialVersionUID = -3314253734620153355L;
 
@@ -30,6 +34,15 @@ public class BookingId implements Serializable {
 
     }
 
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public Acquirer getAcquirer() {
         return acquirer;
     }
@@ -46,11 +59,16 @@ public class BookingId implements Serializable {
         this.timeSlot = timeSlot;
     }
 
-    public LocalDate getDate() {
-        return date;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookingId bookingId = (BookingId) o;
+        return acquirer.equals(bookingId.acquirer) && timeSlot.equals(bookingId.timeSlot) && date.equals(bookingId.date);
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    @Override
+    public int hashCode() {
+        return Objects.hash(acquirer, timeSlot, date);
     }
 }
