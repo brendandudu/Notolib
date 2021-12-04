@@ -1,6 +1,7 @@
 package org.miage.service;
 
-import dto.Transfer;
+import dto.CallForFunds;
+import  dto.Transfer;
 import org.apache.camel.Exchange;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -9,13 +10,8 @@ import javax.enterprise.context.ApplicationScoped;
 public class TransferServiceImpl implements TransferService {
     @Override
     public Transfer emitTransferByCFF(Exchange exchange) {
-        return null;
-    }
-
-    /*@Override
-    public Transfer emitTransferByCFF(Exchange exchange) {
         CallForFunds CFF = exchange.getIn().getBody(CallForFunds.class);
         exchange.getIn().setHeader("bankCreditorRoute", CFF.getRib().substring(0,5));
         return new Transfer(CFF.getRib(), CFF.getAmount());
-    }*/
+    }
 }

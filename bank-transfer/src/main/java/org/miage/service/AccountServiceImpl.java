@@ -1,5 +1,7 @@
 package org.miage.service;
 
+import dto.CallForFunds;
+import dto.Transfer;
 import org.apache.camel.Exchange;
 import org.miage.dao.AccountDAO;
 import org.miage.model.Account;
@@ -35,6 +37,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
+
     @Override
     public void emitRibByEmail(Exchange exchange) {
         String email = exchange.getIn().getBody(String.class);
@@ -48,10 +51,17 @@ public class AccountServiceImpl implements AccountService {
         exchange.getMessage().setHeader("isInMyBank", false);
     }
 
+    /*@Override
+    public float addBalance(Account account,double amount, Exchange exchange){
+        double tr;
+        Transfer transfer  = exchange.getIn().getBody(Transfer.class);
+        tr = transfer.getAmount();
+        accountDAO.addBalance(account,tr,exchange)
+    }*/
+
     @Override
-    public void addBalance(Account account, double amount) {
-        accountDAO.addBalance(account, amount);
+    public float addBalance(Account account, Exchange exchange){
+        Transfer transfer  = exchange.getIn().getBody(Transfer.class);
+        return transfer.getAmount();
     }
-
-
 }
