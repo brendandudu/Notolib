@@ -8,13 +8,14 @@ import org.miage.model.TimeSlot;
 import org.miage.dao.TimeSlotDAO;
 import org.miage.service.TimeSlotService;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
 
-@RequestScoped
+@ApplicationScoped
 public class TimeSlotServiceImpl implements TimeSlotService{
 
     @Inject
