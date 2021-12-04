@@ -27,14 +27,12 @@ public class AccountRessource {
         return accountService.findAccountByClientId(client_id);
     }
 
-
     @Path("/rib/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public String findRibByAccountId(@PathParam("id") int id) {
         return idBank + id;
     }
-
 
     @Path("/client/{email}")
     @Produces(MediaType.APPLICATION_JSON)

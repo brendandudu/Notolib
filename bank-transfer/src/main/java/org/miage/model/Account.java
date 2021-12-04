@@ -1,7 +1,5 @@
 package org.miage.model;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,6 +20,17 @@ public class Account {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
+    @Column(name = "loan_balance")
+    private Double loanBalance;
+
+    public Double getLoanBalance() {
+        return loanBalance;
+    }
+
+    public void setLoanBalance(Double loanBalance) {
+        this.loanBalance = loanBalance;
+    }
+
     public Account(double balance, Client client) {
         this.balance = balance;
         this.client = client;
@@ -30,6 +39,22 @@ public class Account {
 
     public Account() {
 
+    }
+
+    public void withdraw(double amount) {
+        this.balance -= amount;
+    }
+
+    public void deposit(double amount) {
+        this.balance += amount;
+    }
+
+    public void addBalance(double amount) {
+        this.balance += amount;
+    }
+
+    public void addLoanBalance(double amount) {
+        this.loanBalance += amount;
     }
 
     public Double getBalance() {

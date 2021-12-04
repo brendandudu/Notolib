@@ -10,4 +10,7 @@ public interface AccountDAO {
 
     String findRibByAccountId(int id);
 
+    void createLoanBalance(Account start, double amount);
+
+    void addBalance(Account account, double amount);
 }
