@@ -110,4 +110,28 @@ VALUES
     ("2021-12-16",20,22),
     ("2022-01-05",2,39);
 
+INSERT INTO lodging (person_id,title,description,price,picture)
+VALUES
+    (NULL,"Jolie maison avec terrasse","consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut tincidunt",227690,"https:/www.appartement.org/wp-content/uploads/2019/11/195449379.jpg"),
+    (NULL,"Immeuble contemporain","Cras dolor dolor, tempus non, lacinia at, iaculis quis, pede. Praesent eu dui. Cum sociis",282084,"https:/cdn.pixabay.com/photo/2013/10/12/18/05/villa-194671_960_720.jpg"),
+    (NULL,"Appartement 5eme étage","eu, placerat eget, venenatis a, magna. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam",189377,"https:/www.maisons-mca.com/wp-content/uploads/terrasse-maison.jpg"),
+    (NULL,"Immeuble contemporain","magna. Phasellus dolor elit, pellentesque a, facilisis non, bibendum sed, est. Nunc laoreet lectus quis",310480,"https:/www.lesservicesdemacarte.fr/wp-content/uploads/2020/06/ac8d3f464de61fcf2923d258b4c57545481a7079_paris11-oberkampf-appartement-cuisine-web-min.jpg"),
+    (NULL,"Immeuble contemporain","ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere vulputate,",375601,"https:/www.maisons-mca.com/wp-content/uploads/terrasse-maison.jpg"),
+    (NULL,"Appartement 5eme étage","orci, in consequat enim diam vel arcu. Curabitur ut odio vel est tempor bibendum. Donec",378738,"https:/www.appartement.org/wp-content/uploads/2019/11/195449379.jpg"),
+    (NULL,"Maison bord de mer","aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis at lacus. Quisque purus",112491,"https:/www.appartement.org/wp-content/uploads/2019/11/195449379.jpg"),
+    (NULL,"Appartement chic","mauris a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac",246870,"https:/www.lesservicesdemacarte.fr/wp-content/uploads/2020/06/ac8d3f464de61fcf2923d258b4c57545481a7079_paris11-oberkampf-appartement-cuisine-web-min.jpg"),
+    (NULL,"Maison rénovée","nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices",223446,"https:/www.maisons-mca.com/wp-content/uploads/terrasse-maison.jpg"),
+    (NULL,"Immeuble contemporain","sed turpis nec mauris blandit mattis. Cras eget nisi dictum augue malesuada malesuada. Integer id",221015,"https:/www.appartement.org/wp-content/uploads/2019/11/195449379.jpg"),
+    (NULL,"Maison rénovée","erat. Sed nunc est, mollis non, cursus non, egestas a, dui. Cras pellentesque. Sed dictum.",274736,"https:/content-cdn.trucs-et-astuces.co/2018/10/maison.png"),
+    (NULL,"Appartement chic","Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus",116042,"https:/www.maisons-mca.com/wp-content/uploads/terrasse-maison.jpg"),
+    (NULL,"Appartement chic","lorem eu metus. In lorem. Donec elementum, lorem ut aliquam iaculis, lacus pede sagittis augue,",226203,"https:/content-cdn.trucs-et-astuces.co/2018/10/maison.png"),
+    (NULL,"Appartement 5eme étage","Etiam vestibulum massa rutrum magna. Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut",181293,"https:/www.maisons-mca.com/wp-content/uploads/terrasse-maison.jpg"),
+    (NULL,"Maison bord de mer","euismod est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu",163438,"https:/www.maisons-mca.com/wp-content/uploads/terrasse-maison.jpg"),
+    (NULL,"Maison rénovée","ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae Donec tincidunt. Donec",235131,"https:/maison-monde.com/wp-content/uploads/2017/03/olivette-antigua-1.jpg"),
+    (NULL,"Immeuble contemporain","sollicitudin a, malesuada id, erat. Etiam vestibulum massa rutrum magna. Cras convallis convallis dolor. Quisque",222780,"https:/cdn.pixabay.com/photo/2013/10/12/18/05/villa-194671_960_720.jpg"),
+    (NULL,"Maison rénovée","libero. Donec consectetuer mauris id sapien. Cras dolor dolor, tempus non, lacinia at, iaculis quis,",323772,"https:/www.lesservicesdemacarte.fr/wp-content uploads/2020/06/ac8d3f464de61fcf2923d258b4c57545481a7079_paris11-oberkampf-appartement-cuisine-web-min.jpg"),
+    (NULL,"Immeuble contemporain","ac sem ut dolor dapibus gravida. Aliquam tincidunt, nunc ac mattis ornare, lectus ante dictum",309569,"https:/maison-monde.com/wp-content/uploads/2017/03/olivette-antigua-1.jpg"),
+    (NULL,"Maison bord de mer","nunc risus varius orci, in consequat enim diam vel arcu. Curabitur ut odio vel est",347260,"https:/content-cdn.trucs-et-astuces.co/2018/10/maison.png");
+
+
 

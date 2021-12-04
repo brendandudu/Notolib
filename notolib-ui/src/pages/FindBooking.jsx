@@ -3,22 +3,38 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import "../styles/findBooking.css";
-import { CardGroup, Col, Container, Row } from 'react-bootstrap';
+import { CardGroup, Col, Container, Row, Spinner } from 'react-bootstrap';
 
 const FindBooking = () => {
 
     const [timeSlots, setTimeSlots] = useState(null);
+    const [lodgings, setLodgings] = useState(null);
+
     const [date, setDate] = useState(null);
     const [tsChoice, setTsChoice] = useState(null);
     const [lodgingChoice, setLodgingChoice] = useState(null);
+
+    const [lodgingLoad, setLodgingLoad] = useState(false);
 
     const sendBooking = async (timeSlot) => {
         await fetch("http://localhost:8080/booking/acquirer/21/timeslot/"+ tsChoice + "/" + date, {
             method: 'POST'
         });
-
+        
+        window.alert("Rendez-vous effectué, vous allez être redirigé")
         window.location.href='/';
     }
+
+    useEffect(async () => {
+        const t = await fetch("http://localhost:8080/lodging/lodgings", {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }
+          })
+        const json = await t.json();
+        setLodgings(json);
+    }, [date])
 
     const handleSubmit = async (event) => {
         
@@ -48,6 +64,29 @@ const FindBooking = () => {
         setTimeSlots(resultsAsArray)
     }
 
+    const handleSubmitPriceForm = async (event) => {
+        
+        event.preventDefault();
+
+        if(event.target[0].value == "") 
+           return
+
+        setLodgingLoad(true);
+
+
+        const res = await fetch("http://localhost:8080/lodging/lodgings/query?maxPrice=" + event.target[0].value, {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }
+          })
+
+        const json = await res.json();
+        
+        setLodgings(json);
+        setLodgingLoad(false);
+    }
+
     const setSelectedTs = (id) => {
         if(tsChoice){
             var ts = document.getElementById("ts-" + tsChoice);
@@ -74,13 +113,14 @@ const FindBooking = () => {
     }, [date]);
 
 
+
     return (
         <Container className="p-4">
             <Row className="text-center">
-            <form onSubmit={handleSubmit}>
-                <input type="date" name="date" required/>
-                <input type="submit" value="Rechercher" />
-            </form>
+                <form onSubmit={handleSubmit}>
+                    <input type="date" name="date" required/>
+                    <input type="submit" value="Rechercher" />
+                </form>
             </Row>
 
             {date && 
@@ -116,45 +156,32 @@ const FindBooking = () => {
             {tsChoice &&
             <div> 
                 <h3 className="mt-4">Etape 2:</h3> Choisir votre hébergement
+                <Row>
+                <form className="pt-3" onSubmit={handleSubmitPriceForm}>
+                    Prix maximum : 
+                    <input type="number" min="0"/>
+                    <input type="submit" value="Filtrer" />
+                    {lodgingLoad && <Spinner animation="border" variant="info"/>}
+                </form>
+                </Row>
             
                 <Row className='row-cols-1 row-cols-md-4 g-4 mt-2'>
-                    <Col>
-                    <Card border="dark" style={{ width: '18rem' }} id={"lod-1"} className="lodCard" onClick={() => setSelectedLodging(1)}>
-                    <Card.Img variant="top" src="https://www.astuces-express.com/wp-content/uploads/2019/04/donner-un-nouveau-look-a-votre-maison-1.jpg" />
-                        <Card.Body>
-                            <Card.Title>Maison 1</Card.Title>
-                            <Card.Subtitle className="mb-3 text-muted">100 000€</Card.Subtitle>
-                                    <Card.Text>    
-                                        Jolie appartement vu sur la mer               
-                                    </Card.Text>
-                        </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card border="dark" style={{ width: '18rem' }} id={"lod-2"} className="lodCard" onClick={() => setSelectedLodging(2)}>
-                        <Card.Img variant="top" src="https://www.astuces-express.com/wp-content/uploads/2019/04/donner-un-nouveau-look-a-votre-maison-1.jpg" />
-                        <Card.Body>
-                            <Card.Title>Maison 1</Card.Title>
-                            <Card.Subtitle className="mb-3 text-muted">170 000€</Card.Subtitle>
-                                    <Card.Text>    
-                                        Jolie appartement vu sur la mer               
-                                    </Card.Text>
-                        </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card border="dark" style={{ width: '18rem' }}  id={"lod-3"} className="lodCard" onClick={() => setSelectedLodging(3)}>
-                        <Card.Img variant="top" className="h-75" src="https://www.astuces-express.com/wp-content/uploads/2019/04/donner-un-nouveau-look-a-votre-maison-1.jpg"/>
-                        <Card.Body>
-                            <Card.Title>Maison 1</Card.Title>
-                            <Card.Subtitle className="mb-3 text-muted">310 000€</Card.Subtitle>
-                                    <Card.Text>    
-                                        Jolie appartement vu sur la mer             
-                                    </Card.Text>
-                        </Card.Body>
-                        </Card>
-                    </Col>
-                        
+
+                    {lodgings.map((lodging) => (
+                        <Col>
+                        <Card border="dark" style={{ width: '18rem' }} id={"lod-" + lodging.id} className="lodCard h-100" onClick={() => setSelectedLodging(lodging.id)}>
+                        <Card.Img variant="top" src={lodging.picture} />
+                            <Card.Body>
+                                <Card.Title>{lodging.title}</Card.Title>
+                                <Card.Subtitle className="mb-3 text-muted">{lodging.price}€</Card.Subtitle>
+                                        <Card.Text>    
+                                            {lodging.description}            
+                                        </Card.Text>
+                            </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+
                 </Row>
                 </div>
             }

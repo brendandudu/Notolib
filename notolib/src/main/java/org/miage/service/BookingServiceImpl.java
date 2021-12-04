@@ -9,12 +9,13 @@ import org.miage.model.Acquirer;
 import org.miage.model.Booking;
 import org.miage.model.TimeSlot;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.Collection;
 
-@RequestScoped
+@ApplicationScoped
 public class BookingServiceImpl implements BookingService{
 
     @Inject
