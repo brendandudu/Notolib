@@ -3,11 +3,11 @@ package org.miage.dao;
 import org.jboss.logging.Logger;
 import org.miage.model.Notary;
 import org.miage.model.TimeSlot;
+import org.miage.model.WeekDay;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package org.miage.dao;
 
-import org.miage.model.Notary;
 import org.miage.model.TimeSlot;
+import org.miage.model.WeekDay;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
