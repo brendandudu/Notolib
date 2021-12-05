@@ -11,7 +11,7 @@ public class TransferServiceImpl implements TransferService {
     @Override
     public Transfer emitTransferByCFF(Exchange exchange) {
         CallForFunds CFF = exchange.getIn().getBody(CallForFunds.class);
-        exchange.getIn().setHeader("bankCreditorRoute", CFF.getRib().substring(0,6));
-        return new Transfer(CFF.getRib(), CFF.getAmount());
+        exchange.getIn().setHeader("bankCreditorRoute", CFF.getRibCreditor().substring(0,5));
+        return new Transfer(CFF.getRibCreditor(), CFF.getAmount());
     }
 }

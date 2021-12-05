@@ -3,6 +3,7 @@ package org.miage.service;
 import dto.CallForFunds;
 import dto.Transfer;
 import org.apache.camel.Exchange;
+import org.jboss.logging.Logger;
 import org.miage.dao.AccountDAO;
 import org.miage.exception.AccountNotFoundException;
 import org.miage.model.Account;
@@ -22,9 +23,26 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void createLoan(CallForFunds callForFunds) {
-        Account account = accountDAO.findAccountbyRib(callForFunds.getRib());
-        account.addLoanBalance(callForFunds.getAmount());
+    public void withdrawLoanBalance(CallForFunds callForFunds) {
+        Account account = accountDAO.findAccountbyRib(callForFunds.getRibDebtor());
+        accountDAO.withdrawLoanBalance(account.getId(), (double) callForFunds.getAmount());
+    }
+
+    @Override
+    public void depositLoanBalance(CallForFunds callForFunds) {
+        Account account = accountDAO.findAccountbyRib(callForFunds.getRibDebtor());
+        accountDAO.depositLoanBalance(account.getId(), (double) callForFunds.getAmount());
+    }
+
+    @Override
+    public void withdrawBalance(int accountId, double amount) {
+        accountDAO.withdrawBalance(accountId, amount);
+    }
+
+    @Override
+    public void depositBalance(Transfer transfer) {
+        Account account = accountDAO.findAccountbyRib(transfer.getRibCreditor());
+        accountDAO.depositBalance(account.getId(), transfer.getAmount());
     }
 
     @Override
@@ -33,10 +51,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void emitRibByEmail(Exchange exchange) throws AccountNotFoundException {
+    public void emitRibByEmail(Exchange exchange) {
         String email = exchange.getIn().getBody(String.class);
 
-        String rib = accountDAO.findRibByEmail(email);
+        String rib = accountDAO.findRibOrNullByEmail(email);
         if (rib != null) {
             exchange.getMessage().setHeader("isInMyBank", true);
             exchange.getMessage().setBody(rib);
@@ -45,8 +63,4 @@ public class AccountServiceImpl implements AccountService {
         exchange.getMessage().setHeader("isInMyBank", false);
     }
 
-    @Override
-    public void addBalance(Account account, Transfer transfer) {
-        account.addBalance(transfer.getAmount());
-    }
 }

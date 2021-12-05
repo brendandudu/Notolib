@@ -23,38 +23,21 @@ public class Account {
     @Column(name = "loan_balance")
     private Double loanBalance;
 
-    public double getLoanBalance() {
-        return loanBalance;
-    }
-
-    public void setLoanBalance(Double loanBalance) {
-        this.loanBalance = loanBalance;
-    }
-
     public Account(double balance, Client client) {
         this.balance = balance;
         this.client = client;
-
     }
 
     public Account() {
 
     }
 
-    public void withdraw(double amount) {
-        this.balance -= amount;
+    public double getLoanBalance() {
+        return loanBalance;
     }
 
-    public void deposit(double amount) {
-        this.balance += amount;
-    }
-
-    public void addBalance(double amount) {
-        this.balance += amount;
-    }
-
-    public void addLoanBalance(double amount) {
-        this.loanBalance += amount;
+    public void setLoanBalance(Double loanBalance) {
+        this.loanBalance = loanBalance;
     }
 
     public Double getBalance() {

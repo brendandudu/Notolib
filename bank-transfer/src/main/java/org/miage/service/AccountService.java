@@ -10,17 +10,16 @@ public interface AccountService {
 
     Account findAccountByClientId(int id);
 
-    //Crée un prêt sur le compte de l'acquéreur
-    //Utiliser DTO CALLFORFUND
-    //void createLoan(Account account, double amount);
-    void createLoan(CallForFunds callForFunds);
+    void withdrawLoanBalance(CallForFunds callForFunds);
 
-    //Ajoute le montant du virement sur le compte du notaire
+    void depositLoanBalance(CallForFunds callForFunds);
 
-    void addBalance(Account account, Transfer transfer);
+    void withdrawBalance(int accountId, double amount);
+
+    void depositBalance(Transfer transfer);
 
     String findRibByEmail(String email) throws AccountNotFoundException;
 
-    void emitRibByEmail(Exchange exchange) throws AccountNotFoundException;
+    void emitRibByEmail(Exchange exchange);
 
 }

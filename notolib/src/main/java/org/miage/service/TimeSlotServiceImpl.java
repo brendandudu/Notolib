@@ -1,15 +1,11 @@
 package org.miage.service;
 
-import org.miage.dao.WeekDay;
+import org.miage.model.WeekDay;
 import org.miage.dao.NotNotaryIdException;
-import org.miage.model.Notary;
-import org.miage.dao.PersonDAO;
 import org.miage.model.TimeSlot;
 import org.miage.dao.TimeSlotDAO;
-import org.miage.service.TimeSlotService;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalTime;

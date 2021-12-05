@@ -1,6 +1,5 @@
 package org.miage.model;
 
-import org.miage.dao.WeekDay;
 import org.miage.resources.LocalTimeAdapter;
 
 import javax.persistence.*;

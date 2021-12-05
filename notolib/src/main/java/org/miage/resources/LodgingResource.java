@@ -19,7 +19,7 @@ public class LodgingResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public void createLodging(Lodging lodging) {
-        lodgingService.createLodging(lodging.getAcquirer(), lodging.getTitle(), lodging.getDescription(), lodging.getPrice(), lodging.getPicture());
+        lodgingService.createLodging(lodging);
     }
 
     @Path("/{lodgingId}")

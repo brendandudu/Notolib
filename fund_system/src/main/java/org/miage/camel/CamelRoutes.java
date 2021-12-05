@@ -4,6 +4,7 @@ import dto.CallForFunds;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.miage.camel.aggregations.CallForFoundAggregationStrategy;
 import org.miage.camel.aggregations.RibAggregationStrategy;
 
@@ -15,6 +16,12 @@ public class CamelRoutes extends RouteBuilder {
 
     @Inject
     CamelContext camelContext;
+
+    @ConfigProperty(name = "org.miage.idBankAcquirer")
+    String idBankAcquirer;
+
+    @ConfigProperty(name = "org.miage.idBankNotary")
+    String idBankNotary;
 
     @Inject
     CallForFoundAggregationStrategy callForFoundAggregationStrategy;
@@ -30,10 +37,10 @@ public class CamelRoutes extends RouteBuilder {
         from("jms:queue:BKRS/booking")
                 .log("${body}")
                 .split(jsonpath("$.*"), callForFoundAggregationStrategy).streaming()    //For each line of json
-                .choice().when(body().contains("@"))    //If it's an email --> get RIB
-                .multicast(ribAggregationStrategy)
-                .to("jms:queue:BKRS/FR121/RIB?exchangePattern=InOut")
-                .to("jms:queue:BKRS/FR129/RIB?exchangePattern=InOut")
+                .choice().when(body().contains("@"))    //If it's an email
+                .multicast(ribAggregationStrategy)  // --> ask RIB from all banks
+                .to("jms:queue:BKRS/" + idBankAcquirer + "/RIB?exchangePattern=InOut")
+                .to("jms:queue:BKRS/" + idBankNotary + "/RIB?exchangePattern=InOut")
                 .end()
                 .log("RIB found : ${body}")
                 .endChoice()
@@ -46,6 +53,5 @@ public class CamelRoutes extends RouteBuilder {
                 .setHeader(Exchange.FILE_NAME, constant("CFF_.txt"))
                 .to("file:data/CFF")*/
                 .end();
-
     }
 }
