@@ -1,9 +1,11 @@
 package org.miage.dao;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 import org.miage.exception.AccountNotFoundException;
 import org.miage.model.Account;
 import org.miage.model.Client;
+import org.miage.service.AccountServiceImpl;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -11,17 +13,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @ApplicationScoped
 public class AccountDAOImpl implements AccountDAO {
+
     @PersistenceContext(name = "mysql")
     EntityManager em;
 
     @ConfigProperty(name = "org.miage.idBank")
     String idBank;
-
-    @Inject
-    ClientDAO clientDAO;
 
     @Override
     @Transactional
@@ -31,15 +32,31 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public void createLoanBalance(Account account, double amount) {
-        account.addLoanBalance(amount);
-        em.merge(account);
+    @Transactional
+    public void withdrawLoanBalance(int accountId, double amount) {
+        Account account = em.find(Account.class, accountId);
+        account.setLoanBalance(account.getLoanBalance() - amount);
     }
 
     @Override
-    public void addBalance(Account account, double amount) {
-        account.addBalance(amount);
-        em.merge(account);
+    @Transactional
+    public void depositLoanBalance(int accountId, double amount) {
+        Account account = em.find(Account.class, accountId);
+        account.setLoanBalance(account.getLoanBalance() + amount);
+    }
+
+    @Override
+    @Transactional
+    public void withdrawBalance(int accountId, double amount) {
+        Account account = em.find(Account.class, accountId);
+        account.setBalance(account.getBalance() - amount);
+    }
+
+    @Override
+    @Transactional
+    public void depositBalance(int accountId, double amount) {
+        Account account = em.find(Account.class, accountId);
+        account.setBalance(account.getBalance() + amount);
     }
 
     @Override
@@ -59,12 +76,25 @@ public class AccountDAOImpl implements AccountDAO {
         }catch(NoResultException e){
             throw new AccountNotFoundException();
         }
-
     }
 
+
     @Override
+    @Transactional
+    public String findRibOrNullByEmail(String email) {
+        List account_id = em.createQuery("Select a.id from Account a where a.client.email= :email").setParameter("email", email).getResultList();
+
+        if (account_id.size() == 1)
+            return idBank + account_id.get(0);
+
+        return null;
+    }
+
+
+    @Override
+    @Transactional
     public Account findAccountbyRib(String rib) {
-        int account_id = Integer.parseInt(rib.substring(6));
+        int account_id = Integer.parseInt(rib.substring(5));
         return em.find(Account.class, account_id);
     }
 }

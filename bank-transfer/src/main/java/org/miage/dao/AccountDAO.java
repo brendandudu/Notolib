@@ -10,11 +10,17 @@ public interface AccountDAO {
 
     Account findAccountByClientId(int client_id);
 
-    void createLoanBalance(Account start, double amount);
+    void withdrawLoanBalance(int accountId, double amount);
 
-    void addBalance(Account account, double amount);
+    void depositLoanBalance(int accountId, double amount);
+
+    void withdrawBalance(int accountId, double amount);
+
+    void depositBalance(int accountId, double amount);
 
     String findRibByEmail(String email) throws AccountNotFoundException;
+
+    String findRibOrNullByEmail(String email);
 
     Account findAccountbyRib(String rib);
 }

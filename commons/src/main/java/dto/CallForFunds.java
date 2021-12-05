@@ -3,15 +3,17 @@ package dto;
 public class CallForFunds {
 
     private float amount;
-    private String rib;
+    private String ribDebtor;
+    private String ribCreditor;
     private String reason;
 
     public CallForFunds() {
     }
 
-    public CallForFunds(float amount, String rib, String reason) {
+    public CallForFunds(float amount, String ribDebtor, String ribCreditor, String reason) {
         this.amount = amount;
-        this.rib = rib;
+        this.ribDebtor = ribDebtor;
+        this.ribCreditor = ribCreditor;
         this.reason = reason;
     }
 
@@ -23,12 +25,20 @@ public class CallForFunds {
         this.amount = amount;
     }
 
-    public String getRib() {
-        return rib;
+    public String getRibDebtor() {
+        return ribDebtor;
     }
 
-    public void setRib(String rib) {
-        this.rib = rib;
+    public void setRibDebtor(String ribDebtor) {
+        this.ribDebtor = ribDebtor;
+    }
+
+    public String getRibCreditor() {
+        return ribCreditor;
+    }
+
+    public void setRibCreditor(String ribCreditor) {
+        this.ribCreditor = ribCreditor;
     }
 
     public String getReason() {
@@ -43,7 +53,8 @@ public class CallForFunds {
     public String toString() {
         return "CallForFunds{" +
                 "amount=" + amount +
-                ", rib='" + rib + '\'' +
+                ", ribDebtor='" + ribDebtor + '\'' +
+                ", ribCreditor='" + ribCreditor + '\'' +
                 ", reason='" + reason + '\'' +
                 '}';
     }
