@@ -1,8 +1,6 @@
 package org.miage.service;
 
 import org.miage.dao.NotNotaryIdException;
-import org.miage.model.Notary;
-import org.miage.dao.WeekDay;
 import org.miage.model.TimeSlot;
 
 import java.time.LocalDate;

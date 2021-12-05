@@ -39,7 +39,7 @@ public class CamelRoutes extends RouteBuilder {
         from("jms:queue:BKRS/FR12/virement?extOut")
         .bean(virementService); ////TODO Récupère un virment et l'ajoute, use ?value =   ou un filter piper*/
 
-        //ajouter aussi dans l'autre bank
+
         from("jms:queue:BKRS/" + idBank + "/RIB")
                 .bean(accountService, "emitRibByEmail"); //TODO retourner un rib par l'email
 
