@@ -1,12 +1,10 @@
 package org.miage.service;
 
 import org.miage.camel.gateways.BookingGateway;
-import org.miage.dao.BookingDAO;
-import org.miage.dao.IncompatibleDayOfWeekException;
-import org.miage.dao.NotAcquirerIdException;
-import org.miage.dao.PersonDAO;
+import org.miage.dao.*;
 import org.miage.model.Acquirer;
 import org.miage.model.Booking;
+import org.miage.model.Lodging;
 import org.miage.model.TimeSlot;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,16 +20,20 @@ public class BookingServiceImpl implements BookingService{
     BookingDAO bookingDAO;
 
     @Inject
+    LodgingDAO lodgingDAO;
+
+    @Inject
     BookingGateway bookingGateway;
 
 
     @Override
-    public void bookOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
+    public void bookOnDate(int timeSlotId, int acquirerId, LocalDate date, int lodgingId) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
         Booking b = bookingDAO.bookTimeSlotOnDate(timeSlotId, acquirerId, date);
+        Lodging l = lodgingDAO.getLodgingById(lodgingId);
         bookingGateway.sendBooking(
                 b.getId().getAcquirer().getEmail(),
                 b.getId().getTimeSlot().getNotary().getEmail(),
-                120000 ); //TODO changer le montant */
+                l.getPrice().floatValue()); //TODO changer le montant */
     }
 
     @Override

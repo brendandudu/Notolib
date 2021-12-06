@@ -16,6 +16,11 @@ public class LodgingDAOImpl implements LodgingDAO{
     EntityManager em;
 
     @Override
+    public Lodging getLodgingById(Integer lodgingId) {
+        return em.find(Lodging.class, lodgingId);
+    }
+
+    @Override
     public void createLodging(Person acquirer, String title, String description, Double price, String picture) {
         Lodging l = new Lodging(acquirer, title, description, price, picture);
         em.persist(l);

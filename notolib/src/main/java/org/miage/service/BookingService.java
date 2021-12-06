@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 public interface BookingService {
-    void bookOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException;
+    void bookOnDate(int timeSlotId, int acquirerId, LocalDate date, int lodgingId) throws IncompatibleDayOfWeekException, NotAcquirerIdException;
     void cancelBooking(int timeSlotId, int acquirerId, LocalDate date);
     Collection<Booking> getAllBookings (int personId);
 
