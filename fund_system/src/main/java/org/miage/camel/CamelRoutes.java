@@ -3,6 +3,7 @@ package org.miage.camel;
 import dto.CallForFunds;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.miage.camel.aggregations.CallForFoundAggregationStrategy;
@@ -10,6 +11,7 @@ import org.miage.camel.aggregations.RibAggregationStrategy;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.Date;
 
 @ApplicationScoped
 public class CamelRoutes extends RouteBuilder {
@@ -49,10 +51,8 @@ public class CamelRoutes extends RouteBuilder {
                 .marshal().json()
                 .log("CFF : ${header.bankAcquirerRoute}")
                 .toD("jms:queue:BKRS/${header.bankAcquirerRoute}/CFF")
-                /*.unmarshal().json(CallForFunds.class)
-                .setHeader(Exchange.FILE_NAME, constant("CFF_.txt"))
-                .to("file:data/CFF")*/
                 .end();
 
     }
+
 }
