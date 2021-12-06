@@ -38,9 +38,7 @@ public class CamelRoutes extends RouteBuilder {
                 .handled(true)
                 .log("Le client n'est pas majeur")
                 .process(new ClientNotAdultProcessor()).marshal().json()
-                .log("REGARDEZ ICIIIII")
                 .log("${body}")
-                .log("ICIIIIIII")
                 .to("jms:queue:BKRS/notolib/notification");
 
         onException(LoanAlreadyExistsException.class)
@@ -66,7 +64,7 @@ public class CamelRoutes extends RouteBuilder {
 
         //ajouter aussi dans l'autre bank
         from("jms:queue:BKRS/" + idBank + "/RIB")
-                .bean(accountService, "emitRibByEmail"); //TODO retourner un rib par l'email
+                .bean(accountService, "emitRibByEmail");
 
         from("jms:queue:BKRS/" + idBank + "/RIB")
                 .bean(accountService, "emitRibByEmail");
@@ -85,7 +83,7 @@ public class CamelRoutes extends RouteBuilder {
         @Override
         public void process(Exchange exchange) {
             CamelExecutionException exception = (CamelExecutionException) exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
-            exchange.getMessage().setBody(((ClientNotAdultException) exception.getCause()).getNotification());
+            exchange.getMessage().setBody(((LoanAlreadyExistsException) exception.getCause()).getNotification());
         }
     }
 

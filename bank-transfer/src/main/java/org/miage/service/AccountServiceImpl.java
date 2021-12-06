@@ -40,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountDAO.findAccountbyRib(callForFunds.getRibDebtor());
 
         if (account.getClient().getAge() >= 18 ){ //on vérifie si le client est majeur
-            if (account.getLoanBalance() == 0.0){ //on vérifie si le client n'a pas de prêt à rembourser
+            if (account.getLoanBalance() <= 0){ //on vérifie si le client n'a pas de prêt à rembourser
                 accountDAO.depositLoanBalance(account.getId(), (double) callForFunds.getAmount());
             }else{
 
