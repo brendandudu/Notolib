@@ -30,4 +30,8 @@ public class NotificationDTO {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public String toString() {
+        return "PERSONNE : " + userEmail + " ET MESSAGE : " + message;
+    }
 }

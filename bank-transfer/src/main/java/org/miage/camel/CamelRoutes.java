@@ -38,9 +38,7 @@ public class CamelRoutes extends RouteBuilder {
                 .handled(true)
                 .log("Le client n'est pas majeur")
                 .process(new ClientNotAdultProcessor()).marshal().json()
-                .log("REGARDEZ ICIIIII")
                 .log("${body}")
-                .log("ICIIIIIII")
                 .to("jms:queue:BKRS/notolib/notification");
 
         onException(LoanAlreadyExistsException.class)
