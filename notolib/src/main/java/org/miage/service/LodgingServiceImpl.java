@@ -1,5 +1,6 @@
 package org.miage.service;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.miage.dao.LodgingDAO;
 import org.miage.model.Lodging;
 import org.miage.model.Person;
@@ -13,6 +14,9 @@ public class LodgingServiceImpl implements LodgingService{
 
     @Inject
     LodgingDAO lodgingDAO;
+
+    @ConfigProperty(name = "org.miage.acquirerId")
+    Integer acquirerId;
 
     @Override
     public void createLodging(Lodging lodging) {
@@ -31,6 +35,7 @@ public class LodgingServiceImpl implements LodgingService{
 
     @Override
     public void setLodgingAcquirer(Integer lodgingId, Integer acquirerId) {
+        acquirerId = this.acquirerId;
         lodgingDAO.setLodgingAcquirer(lodgingId, acquirerId);
     }
 

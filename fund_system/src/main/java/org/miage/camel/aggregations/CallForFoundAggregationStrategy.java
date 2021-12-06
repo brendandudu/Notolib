@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @ApplicationScoped
 public class CallForFoundAggregationStrategy implements AggregationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(CallForFoundAggregationStrategy.class);
     //Reconstruct a list of object with the splitted messages
     @Override
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
@@ -28,7 +27,6 @@ public class CallForFoundAggregationStrategy implements AggregationStrategy {
             list.add(newBody);
 
             if(list.size() == 3) {
-                LOG.info("iciiiiii" + list);
                 String bankAcquirerRoute = ((String) list.get(0)).substring(0, 5); //Substring RIB to get bank number of acquirer
                 oldExchange.getIn().setHeader("bankAcquirerRoute", bankAcquirerRoute);
                 oldExchange.getIn().setBody(new CallForFunds(((Double) list.get(2)).floatValue(), (String) list.get(0), (String) list.get(1), "change reason"));

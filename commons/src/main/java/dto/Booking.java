@@ -1,10 +1,13 @@
 package dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Booking {
 
     private String acquirerEmail;
     private String notaryEmail;
-    private float amount; //TODO changer par le prix d'un logement
+    private float amount;
 
     public Booking() {
     }

@@ -1,16 +1,12 @@
 package org.miage.service;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.miage.camel.gateways.BookingGateway;
-import org.miage.dao.BookingDAO;
-import org.miage.dao.IncompatibleDayOfWeekException;
-import org.miage.dao.NotAcquirerIdException;
-import org.miage.dao.PersonDAO;
-import org.miage.model.Acquirer;
+import org.miage.dao.*;
 import org.miage.model.Booking;
-import org.miage.model.TimeSlot;
+import org.miage.model.Lodging;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -22,25 +18,43 @@ public class BookingServiceImpl implements BookingService{
     BookingDAO bookingDAO;
 
     @Inject
+    LodgingDAO lodgingDAO;
+
+    @Inject
     BookingGateway bookingGateway;
 
+    @Inject
+    NotificationService notificationService;
+
+    @ConfigProperty(name = "org.miage.acquirerId")
+    Integer acquirerId;
+
+    @ConfigProperty(name = "org.miage.activeUserId")
+    Integer userId;
 
     @Override
-    public void bookOnDate(int timeSlotId, int acquirerId, LocalDate date) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
+    public void bookOnDate(int timeSlotId, int acquirerId, LocalDate date, int lodgingId) throws IncompatibleDayOfWeekException, NotAcquirerIdException {
+        acquirerId = this.acquirerId;
         Booking b = bookingDAO.bookTimeSlotOnDate(timeSlotId, acquirerId, date);
-        bookingGateway.sendBooking(
+        Lodging l = lodgingDAO.getLodgingById(lodgingId);
+       bookingGateway.sendBooking(
                 b.getId().getAcquirer().getEmail(),
                 b.getId().getTimeSlot().getNotary().getEmail(),
-                120000 ); //TODO changer le montant */
+                l.getPrice().floatValue());
+
+        notificationService.createUserNotification(b.getId().getAcquirer().getId(), "Rendez-vous pris le " + b.getId().getDate() + " de " + b.getId().getTimeSlot().getStartTime() + " à " +b.getId().getTimeSlot().getEndTime() + " avec " + b.getId().getTimeSlot().getNotary());
+
     }
 
     @Override
     public void cancelBooking(int timeSlotId, int acquirerId, LocalDate date) {
+        acquirerId = this.acquirerId;
         bookingDAO.cancelBooking(timeSlotId, acquirerId, date);
     }
 
     @Override
     public Collection<Booking> getAllBookings(int personId) {
+        personId = userId;
         return bookingDAO.getAllBookings(personId);
     }
 }

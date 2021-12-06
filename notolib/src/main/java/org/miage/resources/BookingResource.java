@@ -19,13 +19,13 @@ public class BookingResource {
     BookingService bookingService;
 
 
-    @Path("/acquirer/{acquirerId}/timeslot/{timeSlotId}/{date}")
+    @Path("/acquirer/{acquirerId}/timeslot/{timeSlotId}/{date}/lodging/{lodgingId}")
     @Transactional
     @POST
-    public void makeBooking(@PathParam("acquirerId") int acquirerId, @PathParam("timeSlotId") int timeSlotId, @PathParam("date") String date ){
+    public void makeBooking(@PathParam("acquirerId") int acquirerId, @PathParam("timeSlotId") int timeSlotId, @PathParam("date") String date, @PathParam("lodgingId") int lodgingId ){
         LocalDate localDate =  LocalDate.parse(date);
         try {
-            bookingService.bookOnDate(timeSlotId, acquirerId, localDate);
+            bookingService.bookOnDate(timeSlotId, acquirerId, localDate, lodgingId);
         } catch (IncompatibleDayOfWeekException | NotAcquirerIdException e) {
             e.printStackTrace();
         }
