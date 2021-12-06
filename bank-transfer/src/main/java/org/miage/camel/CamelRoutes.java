@@ -5,6 +5,7 @@ import dto.Transfer;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.miage.exception.LoanCreationNotAllowedException;
 import org.miage.service.AccountService;
 import org.miage.service.TransferService;
 
@@ -28,6 +29,16 @@ public class CamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+
+        onException(LoanCreationNotAllowedException.ClientIsNotAdultException.class)
+                .handled(true)
+                .setHeader("Loan_success", simple("false"))
+                .setBody(simple("Création du prêt impossible"));
+
+        onException(LoanCreationNotAllowedException.LoanAlreadyExistsException.class)
+                .handled(true)
+                .setHeader("Loan_success", simple("false"))
+                .setBody(simple("Création du prêt impossible"));
 
         from("jms:queue:BKRS/" + idBank + "/CFF")
                 .log("${body}")

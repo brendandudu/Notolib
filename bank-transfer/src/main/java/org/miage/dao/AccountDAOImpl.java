@@ -1,14 +1,12 @@
 package org.miage.dao;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
 import org.miage.exception.AccountNotFoundException;
+import org.miage.exception.LoanCreationNotAllowedException;
 import org.miage.model.Account;
 import org.miage.model.Client;
-import org.miage.service.AccountServiceImpl;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -40,9 +38,19 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     @Transactional
-    public void depositLoanBalance(int accountId, double amount) {
+    public void depositLoanBalance(int accountId, double amount) throws  LoanCreationNotAllowedException.LoanAlreadyExistsException, LoanCreationNotAllowedException.ClientIsNotAdultException {
         Account account = em.find(Account.class, accountId);
-        account.setLoanBalance(account.getLoanBalance() + amount);
+        if (account.getClient().getAge() >= 18 ){ //on vérifie si le client est majeur
+            if (account.getLoanBalance() == 0.0){ //on vérifie si le client n'a pas de prêt à rembourser
+                account.setLoanBalance(account.getLoanBalance() + amount);
+            }else{
+                throw new LoanCreationNotAllowedException.LoanAlreadyExistsException(account.getClient());
+            }
+        }else{
+            throw new LoanCreationNotAllowedException.ClientIsNotAdultException(account.getClient());
+
+        }
+
     }
 
     @Override

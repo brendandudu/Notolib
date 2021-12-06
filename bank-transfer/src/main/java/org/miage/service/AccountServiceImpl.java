@@ -3,9 +3,9 @@ package org.miage.service;
 import dto.CallForFunds;
 import dto.Transfer;
 import org.apache.camel.Exchange;
-import org.jboss.logging.Logger;
 import org.miage.dao.AccountDAO;
 import org.miage.exception.AccountNotFoundException;
+import org.miage.exception.LoanCreationNotAllowedException;
 import org.miage.model.Account;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void depositLoanBalance(CallForFunds callForFunds) {
+    public void depositLoanBalance(CallForFunds callForFunds) throws LoanCreationNotAllowedException.ClientIsNotAdultException, LoanCreationNotAllowedException.LoanAlreadyExistsException {
         Account account = accountDAO.findAccountbyRib(callForFunds.getRibDebtor());
         accountDAO.depositLoanBalance(account.getId(), (double) callForFunds.getAmount());
     }

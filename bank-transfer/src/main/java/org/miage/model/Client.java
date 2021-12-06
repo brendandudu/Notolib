@@ -22,6 +22,17 @@ public class Client {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
+    @Column(name = "age")
+    private Integer age;
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
 
     public Client(String fname, String lname, String email, String phone) {
 
