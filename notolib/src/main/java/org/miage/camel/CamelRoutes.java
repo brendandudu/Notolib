@@ -19,7 +19,7 @@ public class CamelRoutes extends RouteBuilder {
         //camelContext.setTracing(true);
 
         from("direct:booking")
-                .marshal().json()
+                .marshal().json().stop()
                 .to("jms:queue:BKRS/booking");
 
 
