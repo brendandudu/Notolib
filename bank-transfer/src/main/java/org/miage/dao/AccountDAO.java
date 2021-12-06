@@ -1,6 +1,5 @@
 package org.miage.dao;
 import org.miage.exception.AccountNotFoundException;
-import org.miage.exception.LoanCreationNotAllowedException;
 import org.miage.model.Account;
 import org.miage.model.Client;
 
@@ -13,13 +12,11 @@ public interface AccountDAO {
 
     void withdrawLoanBalance(int accountId, double amount);
 
-    void depositLoanBalance(int accountId, double amount) throws LoanCreationNotAllowedException.ClientIsNotAdultException, LoanCreationNotAllowedException.LoanAlreadyExistsException;
+    void depositLoanBalance(int accountId, double amount);
 
     void withdrawBalance(int accountId, double amount);
 
     void depositBalance(int accountId, double amount);
-
-    String findRibByEmail(String email) throws AccountNotFoundException;
 
     String findRibOrNullByEmail(String email);
 

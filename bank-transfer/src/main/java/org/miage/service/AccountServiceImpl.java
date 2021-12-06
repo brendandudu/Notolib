@@ -5,14 +5,20 @@ import dto.Transfer;
 import org.apache.camel.Exchange;
 import org.miage.dao.AccountDAO;
 import org.miage.exception.AccountNotFoundException;
-import org.miage.exception.LoanCreationNotAllowedException;
+import org.miage.exception.ClientNotAdultException;
+import org.miage.exception.LoanAlreadyExistsException;
 import org.miage.model.Account;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @ApplicationScoped
 public class AccountServiceImpl implements AccountService {
+
+    @PersistenceContext
+    EntityManager em;
 
     @Inject
     AccountDAO accountDAO;
@@ -29,9 +35,22 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void depositLoanBalance(CallForFunds callForFunds) throws LoanCreationNotAllowedException.ClientIsNotAdultException, LoanCreationNotAllowedException.LoanAlreadyExistsException {
+    public void depositLoanBalance(CallForFunds callForFunds) throws ClientNotAdultException, LoanAlreadyExistsException {
+
         Account account = accountDAO.findAccountbyRib(callForFunds.getRibDebtor());
-        accountDAO.depositLoanBalance(account.getId(), (double) callForFunds.getAmount());
+
+        if (account.getClient().getAge() >= 18 ){ //on vérifie si le client est majeur
+            if (account.getLoanBalance() == 0.0){ //on vérifie si le client n'a pas de prêt à rembourser
+                accountDAO.depositLoanBalance(account.getId(), (double) callForFunds.getAmount());
+            }else{
+
+                throw new LoanAlreadyExistsException(account.getClient());
+            }
+        }else{
+            throw new ClientNotAdultException(account.getClient());
+
+        }
+
     }
 
     @Override
@@ -46,11 +65,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String findRibByEmail(String email) throws AccountNotFoundException {
-        return accountDAO.findRibByEmail(email);
-    }
-
-    @Override
     public void emitRibByEmail(Exchange exchange) {
         String email = exchange.getIn().getBody(String.class);
 
@@ -61,6 +75,11 @@ public class AccountServiceImpl implements AccountService {
             return;
         }
         exchange.getMessage().setHeader("isInMyBank", false);
+    }
+
+    @Override
+    public Account findAccountById(int id) {
+        return em.find(Account.class, id);
     }
 
 }

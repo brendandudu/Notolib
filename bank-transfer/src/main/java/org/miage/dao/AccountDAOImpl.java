@@ -2,7 +2,6 @@ package org.miage.dao;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.miage.exception.AccountNotFoundException;
-import org.miage.exception.LoanCreationNotAllowedException;
 import org.miage.model.Account;
 import org.miage.model.Client;
 
@@ -38,19 +37,9 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     @Transactional
-    public void depositLoanBalance(int accountId, double amount) throws  LoanCreationNotAllowedException.LoanAlreadyExistsException, LoanCreationNotAllowedException.ClientIsNotAdultException {
+    public void depositLoanBalance(int accountId, double amount)  {
         Account account = em.find(Account.class, accountId);
-        if (account.getClient().getAge() >= 18 ){ //on vérifie si le client est majeur
-            if (account.getLoanBalance() == 0.0){ //on vérifie si le client n'a pas de prêt à rembourser
-                account.setLoanBalance(account.getLoanBalance() + amount);
-            }else{
-                throw new LoanCreationNotAllowedException.LoanAlreadyExistsException(account.getClient());
-            }
-        }else{
-            throw new LoanCreationNotAllowedException.ClientIsNotAdultException(account.getClient());
-
-        }
-
+        account.setLoanBalance(account.getLoanBalance() + amount);
     }
 
     @Override
@@ -73,17 +62,6 @@ public class AccountDAOImpl implements AccountDAO {
         Account c = new Account(balance, client);
         em.persist(c);
         return c;
-    }
-
-    @Override
-    @Transactional
-    public String findRibByEmail(String email)  throws AccountNotFoundException {
-        try {
-            int account_id = (int) em.createQuery("Select a.id from Account a where a.client.email=:email").setParameter("email", email).getSingleResult();
-            return idBank + account_id;
-        }catch(NoResultException e){
-            throw new AccountNotFoundException();
-        }
     }
 
 
