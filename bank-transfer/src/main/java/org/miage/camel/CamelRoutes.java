@@ -36,13 +36,18 @@ public class CamelRoutes extends RouteBuilder {
 
         onException(ClientNotAdultException.class)
                 .handled(true)
-                .process(new ClientNotAdultProcessor())
-                .log("${body}");
+                .log("Le client n'est pas majeur")
+                .process(new ClientNotAdultProcessor()).marshal().json()
+                .log("REGARDEZ ICIIIII")
+                .log("${body}")
+                .log("ICIIIIIII")
+                .to("jms:queue:BKRS/notolib/notification");
 
         onException(LoanAlreadyExistsException.class)
                 .handled(true)
-                .process(new LoanAlreadyExistsProcessor())
-                .log("${body}");
+                .log("Le client a deja un pret en cours")
+                .process(new LoanAlreadyExistsProcessor()).marshal().json()
+                .to("jms:queue:BKRS/notolib/notification");
 
         from("jms:queue:BKRS/" + idBank + "/CFF")
                 .log("${body}")
@@ -72,7 +77,7 @@ public class CamelRoutes extends RouteBuilder {
         @Override
         public void process(Exchange exchange) {
             CamelExecutionException exception = (CamelExecutionException) exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
-            exchange.getMessage().setBody(((ClientNotAdultException) exception.getCause()).getErrorMessage());
+            exchange.getMessage().setBody(((ClientNotAdultException) exception.getCause()).getNotification());
         }
     }
 
@@ -80,7 +85,7 @@ public class CamelRoutes extends RouteBuilder {
         @Override
         public void process(Exchange exchange) {
             CamelExecutionException exception = (CamelExecutionException) exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
-            exchange.getMessage().setBody(((ClientNotAdultException) exception.getCause()).getErrorMessage());
+            exchange.getMessage().setBody(((ClientNotAdultException) exception.getCause()).getNotification());
         }
     }
 

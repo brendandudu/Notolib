@@ -5,7 +5,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.miage.service.NotificationService;
 
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -29,7 +28,10 @@ public class CamelRoutes extends RouteBuilder {
 
         from("jms:queue:BKRS/notolib/notification")
                 .unmarshal().json(NotificationDTO.class)
-                .bean(notificationService, "createUserNotification");
+                .log("CHECKEZ ICI PLZZZZZZZZZZ")
+                .log("${body}")
+                .bean(notificationService, "createUserNotificationByDTO")
+                .log("CHECKEZ ICI SVPPPPPPPPPPPPPPP");
 
     }
 }

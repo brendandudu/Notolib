@@ -16,6 +16,7 @@ import java.util.Collection;
 public class NotificationServiceImpl implements NotificationService{
 
     @PersonQualifier
+    @Inject
     PersonDAO personDAO;
 
     @Inject
@@ -25,8 +26,9 @@ public class NotificationServiceImpl implements NotificationService{
     Integer userId;
 
     @Override
-    public void createUserNotification(NotificationDTO notificationDTO) {
+    public void createUserNotificationByDTO(NotificationDTO notificationDTO) {
         Person p = personDAO.findByEmail(notificationDTO.getUserEmail());
+        System.out.println("ICIIIIIIIIIIIIIII"+p);
         notificationDAO.createUserNotification(p.getId(), notificationDTO.getMessage());
     }
 
