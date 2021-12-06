@@ -69,6 +69,11 @@ public class CamelRoutes extends RouteBuilder {
         from("jms:queue:BKRS/" + idBank + "/RIB")
                 .bean(accountService, "emitRibByEmail");
 
+        from("direct:notification")
+                .marshal().json()
+                .log("notification envoyée")
+                .to("jms:queue:BKRS/notolib/notification");
+
     }
 
     private static class ClientNotAdultProcessor implements Processor {
