@@ -3,6 +3,7 @@ package org.miage.camel.gateways;
 import dto.Booking;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.miage.service.NotificationService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

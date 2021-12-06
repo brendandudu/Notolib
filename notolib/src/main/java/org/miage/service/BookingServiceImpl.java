@@ -23,6 +23,9 @@ public class BookingServiceImpl implements BookingService{
     @Inject
     BookingGateway bookingGateway;
 
+    @Inject
+    NotificationService notificationService;
+
     @ConfigProperty(name = "org.miage.acquirerId")
     Integer acquirerId;
 
@@ -34,10 +37,13 @@ public class BookingServiceImpl implements BookingService{
         acquirerId = this.acquirerId;
         Booking b = bookingDAO.bookTimeSlotOnDate(timeSlotId, acquirerId, date);
         Lodging l = lodgingDAO.getLodgingById(lodgingId);
-        bookingGateway.sendBooking(
+       bookingGateway.sendBooking(
                 b.getId().getAcquirer().getEmail(),
                 b.getId().getTimeSlot().getNotary().getEmail(),
                 l.getPrice().floatValue());
+
+        notificationService.createUserNotification(b.getId().getAcquirer().getId(), "Rendez-vous pris le " + b.getId().getDate() + " de " + b.getId().getTimeSlot().getStartTime() + " à " +b.getId().getTimeSlot().getEndTime() + " avec " + b.getId().getTimeSlot().getNotary());
+
     }
 
     @Override
