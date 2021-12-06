@@ -28,10 +28,7 @@ public class CamelRoutes extends RouteBuilder {
 
         from("jms:queue:BKRS/notolib/notification")
                 .unmarshal().json(NotificationDTO.class)
-                .log("CHECKEZ ICI PLZZZZZZZZZZ")
                 .log("${body}")
-                .bean(notificationService, "createUserNotificationByDTO")
-                .log("CHECKEZ ICI SVPPPPPPPPPPPPPPP");
-
+                .bean(notificationService, "createUserNotificationByDTO");
     }
 }

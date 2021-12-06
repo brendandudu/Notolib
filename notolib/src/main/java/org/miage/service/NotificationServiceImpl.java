@@ -10,6 +10,7 @@ import org.miage.model.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @ApplicationScoped
@@ -26,11 +27,10 @@ public class NotificationServiceImpl implements NotificationService{
     Integer userId;
 
     @Override
+    @Transactional
     public void createUserNotificationByDTO(NotificationDTO notificationDTO) {
         System.out.println(notificationDTO);
         Person p = personDAO.findByEmail(notificationDTO.getUserEmail());
-        System.out.println("PEERSON DAOOOOOOOOOO");
-        System.out.println(p);
         notificationDAO.createUserNotification(p.getId(), notificationDTO.getMessage());
     }
 

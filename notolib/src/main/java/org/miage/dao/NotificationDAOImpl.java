@@ -10,17 +10,14 @@ import java.util.Collection;
 import java.util.List;
 
 @ApplicationScoped
-public class NotificationDAOImpl implements NotificationDAO{
+public class NotificationDAOImpl implements NotificationDAO {
 
     @Inject
     EntityManager em;
 
     @Override
     public void createUserNotification(int userId, String message) {
-        System.out.println("CREATION NOTIF USEEEER ICI");
         Person user = em.find(Person.class, userId);
-        System.out.println(user);
-        System.out.println("CREATION NOTIF USEEEER ICI");
         Notification n = new Notification(user, message);
         em.persist(n);
     }
