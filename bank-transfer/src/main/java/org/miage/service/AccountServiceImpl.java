@@ -1,8 +1,10 @@
 package org.miage.service;
 
 import dto.CallForFunds;
+import dto.NotificationDTO;
 import dto.Transfer;
 import org.apache.camel.Exchange;
+import org.miage.camel.gateways.NotificationGateway;
 import org.miage.dao.AccountDAO;
 import org.miage.exception.AccountNotFoundException;
 import org.miage.exception.ClientNotAdultException;
@@ -19,6 +21,9 @@ public class AccountServiceImpl implements AccountService {
 
     @PersistenceContext
     EntityManager em;
+
+    @Inject
+    NotificationGateway notificationGateway;
 
     @Inject
     AccountDAO accountDAO;
@@ -42,6 +47,7 @@ public class AccountServiceImpl implements AccountService {
         if (account.getClient().getAge() >= 18 ){ //on vérifie si le client est majeur
             if (account.getLoanBalance() <= 0){ //on vérifie si le client n'a pas de prêt à rembourser
                 accountDAO.depositLoanBalance(account.getId(), (double) callForFunds.getAmount());
+                notificationGateway.sendNotification(new NotificationDTO(account.getClient().getEmail(), "Un prêt d'un montant de " + callForFunds.getAmount() + "€ vous a été accordé par votre banque"));
             }else{
 
                 throw new LoanAlreadyExistsException(account.getClient());
@@ -62,6 +68,7 @@ public class AccountServiceImpl implements AccountService {
     public void depositBalance(Transfer transfer) {
         Account account = accountDAO.findAccountbyRib(transfer.getRibCreditor());
         accountDAO.depositBalance(account.getId(), transfer.getAmount());
+        notificationGateway.sendNotification(new NotificationDTO(account.getClient().getEmail(), "Un virement de " + transfer.getAmount() + "€ vient d'être déposé sur votre compte"));
     }
 
     @Override

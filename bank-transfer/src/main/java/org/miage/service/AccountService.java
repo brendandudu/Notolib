@@ -1,5 +1,6 @@
 package org.miage.service;
 import dto.CallForFunds;
+import dto.NotificationDTO;
 import dto.Transfer;
 import org.apache.camel.Exchange;
 import org.miage.exception.AccountNotFoundException;
@@ -19,7 +20,6 @@ public interface AccountService {
     void withdrawBalance(int accountId, double amount);
 
     void depositBalance(Transfer transfer);
-
 
     void emitRibByEmail(Exchange exchange);
 
