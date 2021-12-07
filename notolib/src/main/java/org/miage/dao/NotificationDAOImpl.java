@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @ApplicationScoped
-public class NotificationDAOImpl implements NotificationDAO{
+public class NotificationDAOImpl implements NotificationDAO {
 
     @Inject
     EntityManager em;

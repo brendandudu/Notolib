@@ -28,7 +28,8 @@ public class Notification {
         this.viewed = false;
     }
 
-    public Notification(){}
+    public Notification() {
+    }
 
     public Boolean getViewed() {
         return viewed;

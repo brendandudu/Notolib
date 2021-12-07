@@ -29,6 +29,7 @@ public class NotificationServiceImpl implements NotificationService{
     @Override
     @Transactional
     public void createUserNotificationByDTO(NotificationDTO notificationDTO) {
+        System.out.println(notificationDTO);
         Person p = personDAO.findByEmail(notificationDTO.getUserEmail());
         notificationDAO.createUserNotification(p.getId(), notificationDTO.getMessage());
     }
