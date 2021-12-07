@@ -6,6 +6,7 @@ import "../styles/findBooking.css";
 import { CardGroup, Col, Container, Row, Spinner } from 'react-bootstrap';
 import Footer from '../component/Footer';
 import Navbar from '../component/Navbar';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -19,6 +20,7 @@ const FindBooking = () => {
     const [lodgingChoice, setLodgingChoice] = useState(null);
 
     const [lodgingLoad, setLodgingLoad] = useState(false);
+    const history = useHistory();
 
     const sendBooking = async (timeSlot) => {
         await fetch("http://localhost:8080/booking/acquirer/21/timeslot/"+ tsChoice + "/" + date, {
@@ -26,7 +28,7 @@ const FindBooking = () => {
         });
 
         window.alert("Rendez-vous effectué, vous allez être redirigé")
-        window.location.href='/mybookings';
+        history.push("/mybookings");
     }
 
     useEffect(async () => {
