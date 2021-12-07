@@ -5,7 +5,7 @@ import {useContext} from 'react';
 const AcquirerRoute = ({path, component}) =>{
     const {userProfil} = useContext(profilChoice);
 
-    return userProfil === 1 ? (
+    return userProfil === 21 ? (
         <Route exact path={path} component={component} />
     ) : (
         <Redirect to="/"/>

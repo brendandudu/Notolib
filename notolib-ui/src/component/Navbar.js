@@ -8,6 +8,14 @@ const Navbar=()=>{
 
     const {userProfil} = useContext(profilChoice);
 
+    const fetchAllNotifications = async () => {
+        const response = await fetch("http://localhost:8080/notification/user/"+ userProfil +"/notifications/new/count");
+        const data = await response.json();
+
+        console.log(data)
+    };
+
+
     return (
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Notolib</a>
@@ -17,23 +25,23 @@ const Navbar=()=>{
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    { userProfil === 1 &&
+                    { userProfil === 21 &&
                         <li class="nav-item active">
-                            <a class="nav-link" href="/find">Accueil <span class="sr-only">(current)</span></a>
+                            <Link class="nav-link" to="/find">RDV <span class="sr-only">(current)</span></Link>
                         </li>
                     }
                     <li class="nav-item">
-                        <a class="nav-link" href="/apropos">A propos</a>
+                        <Link class="nav-link" to="/apropos">A propos</Link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/mybookings">Mes rendez-vous</a>
+                        <Link class="nav-link" to="/mybookings">Mes rendez-vous</Link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/notifications">Alertes</a>
+                        <Link class="nav-link" to="/notifications">Alertes</Link>
                     </li>
                 </ul>
-                Connecté en tant que { userProfil != 1 ? "Notaire Notaire (ID : 1) " : "Acquereur Acquereur (ID : 21) "}
-                 <Link to="/"><Button>Changer</Button></Link> 
+                Connecté en tant que { userProfil != 21 ? "Notaire Notaire (ID : 1) " : "Acquereur Acquereur (ID : 21) "}
+                 <Link to="/"><Button className="ml-2">Changer</Button></Link> 
             </div>
         </nav>
     )

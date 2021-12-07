@@ -1,16 +1,19 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from '../component/Navbar';
+import profilChoice from "../context/profilChoice";
 
 const Notification = () => {
+
+    const {userProfil} = useContext(profilChoice);
 
     const [notifications, setNotifications] = useState([]);
     const [isRead, setisRead]=useState(false);
 
     const fetchAllNotifications = async () => {
-        const response = await fetch("http://localhost:8080/notification/user/21/notifications", {
+        const response = await fetch("http://localhost:8080/notification/user/"+ userProfil +"/notifications", {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

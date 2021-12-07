@@ -1,18 +1,21 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 import Footer from '../component/Footer';
 import Navbar from '../component/Navbar';
 import { CardGroup } from 'react-bootstrap';
+import profilChoice from "../context/profilChoice";
 
 const MyBooking = () => {
+
+    const {userProfil} = useContext(profilChoice);
 
     const [bookings, setBookings] = useState(null);
 
     const fetchAllBookings = async () => {
-        const res = await fetch("http://localhost:8080/booking/user/25/bookings", {
+        const res = await fetch("http://localhost:8080/booking/user/" + userProfil + "/bookings", {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
