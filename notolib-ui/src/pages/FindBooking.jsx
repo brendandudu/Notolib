@@ -26,7 +26,7 @@ const FindBooking = () => {
         });
 
         window.alert("Rendez-vous effectué, vous allez être redirigé")
-        window.location.href='/';
+        window.location.href='/mybookings';
     }
 
     useEffect(async () => {
