@@ -24,8 +24,6 @@ const MyBooking = () => {
         })
         const json = await res.json();
 
-        console.log(json)
-
         setBookings(json);
     };
 
@@ -48,12 +46,15 @@ const MyBooking = () => {
                                 {bookings.map(booking =>
                                 <Card className="text-center rounded-5xl" border="dark" style={{ width: '30rem' }}>
                                     <Card.Body>
-                                        <Card.Title>Notaire : {booking.id.timeSlot.notary.firstName} {booking.id.timeSlot.notary.lastName} </Card.Title>
+                                        {userProfil === 21 ? 
+                                            <Card.Title>Notaire : {booking.id.timeSlot.notary.firstName} {booking.id.timeSlot.notary.lastName} </Card.Title>
+                                            :
+                                            <Card.Title>Acquereur: {booking.id.acquirer.firstName} {booking.id.acquirer.lastName} </Card.Title>
+                                        }
                                         <Card.Subtitle className="mb-2 text-muted">{booking.id.date}</Card.Subtitle>
                                         <Card.Text>
                                             {booking.id.timeSlot.startTime}  - {booking.id.timeSlot.endTime}
                                         </Card.Text>
-                                        <Button className="focus:outline-none bg-gradient-to-br from-pink-200 via-red-400 to-red-600 hover:from-red-600 hover:to-pink-200 rounded-xl absolute text-white font-bold px-6 py-8 left-1/2 transform -translate-x-1/2 " variant="danger">Annuler</Button>
                                     </Card.Body>
                                 </Card>
                                 )}

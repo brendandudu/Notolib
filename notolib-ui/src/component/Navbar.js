@@ -15,7 +15,6 @@ const Navbar = () => {
         const data = await response.json();
 
         setNotifCount(data);
-        console.log(data);
     };
 
     useEffect(fetchAllNotifications, []);

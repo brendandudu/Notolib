@@ -71,14 +71,11 @@ const FindBooking = () => {
     }
 
     const handleSubmitPriceForm = async (event) => {
-        console.log("DADADADADAKKK");
         event.preventDefault();
 
         if (event.target[0].value === "") {
-            console.log("PAS OKKKKKK");
             return
         }
-        console.log("OKKKKKK");
         setLodgingLoad(true);
 
         const res = await fetch("http://localhost:8080/lodging/lodgings/query?maxPrice=" + event.target[0].value, {

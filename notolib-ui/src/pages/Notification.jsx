@@ -8,7 +8,6 @@ import profilChoice from "../context/profilChoice";
 const Notification = () => {
 
     const {userProfil} = useContext(profilChoice);
-    console.log(userProfil);
 
     const [notifications, setNotifications] = useState([]);
     const [isRead, setisRead]=useState(false);
@@ -22,8 +21,6 @@ const Notification = () => {
 
         })
         const data = await response.json();
-
-        console.log(data)
 
         setNotifications(data);
         setisRead(true);

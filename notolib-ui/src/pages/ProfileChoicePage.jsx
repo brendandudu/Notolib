@@ -29,7 +29,7 @@ const ProfileChoicePage = () => {
                 <Button variant="success" onClick={() => handleNot()}>Profil Notaire (id : 1)</Button>
             </div>
             <Alert variant="primary" className="mt-5">Info : En tant que notaire vous ne pouvez pas prendre de rendez-vous</Alert>
-            <Alert variant="danger" className="mt-2">Attention : Pour pouvoir tester les deux profils, lors de votre prise de RDV, merci de selectionner uniquement les créneaux du notaire portant le nom : Notaire Notaire</Alert>
+            <Alert variant="danger" className="mt-2">Attention : Pour pouvoir tester les deux profils, lors de votre prise de RDV, merci de selectionner uniquement les créneaux du notaire portant le nom : Notary Notary</Alert>
             <Alert variant="danger" className="mt-2">Veuillez également lancer Quarkus avant de choisir votre profil.</Alert>
             </Row>
         </Container>
