@@ -1,5 +1,8 @@
 package dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class CallForFunds {
 
     private float amount;

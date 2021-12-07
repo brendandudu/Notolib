@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.*;
 
-@Path("/account")
+@Path("/bank")
 public class AccountRessource {
 
     @Inject
@@ -20,24 +20,25 @@ public class AccountRessource {
     @ConfigProperty(name = "org.miage.idBank")
     String idBank;
 
-    @Path("/client/{id}")
+    @Path("/account/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Account findAccountById(@PathParam("id") int id) {
+        return accountService.findAccountById(id);
+    }
+
+    @Path("/account/{id}/client")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Account findAccountByClientId(@PathParam("id") int client_id) {
         return accountService.findAccountByClientId(client_id);
     }
 
-    @Path("/rib/{id}")
+    @Path("account/{id}/rib")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public String findRibByAccountId(@PathParam("id") int id) {
-        return idBank + id;
+        return "RIB " + " : " + idBank + id;
     }
 
-    @Path("/client/{email}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    public String findRibByEmail(@PathParam("email") String email) throws AccountNotFoundException {
-        return accountService.findRibByEmail(email);
-    }
 }

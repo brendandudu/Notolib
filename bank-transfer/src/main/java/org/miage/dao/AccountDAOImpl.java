@@ -1,14 +1,11 @@
 package org.miage.dao;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
 import org.miage.exception.AccountNotFoundException;
 import org.miage.model.Account;
 import org.miage.model.Client;
-import org.miage.service.AccountServiceImpl;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -40,7 +37,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     @Transactional
-    public void depositLoanBalance(int accountId, double amount) {
+    public void depositLoanBalance(int accountId, double amount)  {
         Account account = em.find(Account.class, accountId);
         account.setLoanBalance(account.getLoanBalance() + amount);
     }
@@ -65,17 +62,6 @@ public class AccountDAOImpl implements AccountDAO {
         Account c = new Account(balance, client);
         em.persist(c);
         return c;
-    }
-
-    @Override
-    @Transactional
-    public String findRibByEmail(String email)  throws AccountNotFoundException {
-        try {
-            int account_id = (int) em.createQuery("Select a.id from Account a where a.client.email=:email").setParameter("email", email).getSingleResult();
-            return idBank + account_id;
-        }catch(NoResultException e){
-            throw new AccountNotFoundException();
-        }
     }
 
 

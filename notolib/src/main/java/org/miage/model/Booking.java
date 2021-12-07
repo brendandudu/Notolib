@@ -35,4 +35,5 @@ public class Booking {
     public void setId(BookingId id) {
         this.id = id;
     }
+
 }

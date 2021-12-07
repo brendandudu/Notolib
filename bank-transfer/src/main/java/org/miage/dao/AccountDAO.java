@@ -18,8 +18,6 @@ public interface AccountDAO {
 
     void depositBalance(int accountId, double amount);
 
-    String findRibByEmail(String email) throws AccountNotFoundException;
-
     String findRibOrNullByEmail(String email);
 
     Account findAccountbyRib(String rib);
