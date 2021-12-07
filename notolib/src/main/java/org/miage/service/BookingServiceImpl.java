@@ -46,6 +46,7 @@ public class BookingServiceImpl implements BookingService {
                 l.getPrice().floatValue());
 
         notificationService.createUserNotification(b.getId().getAcquirer().getId(), "Rendez-vous pris le " + b.getId().getDate() + " de " + b.getId().getTimeSlot().getStartTime() + " à " + b.getId().getTimeSlot().getEndTime() + " avec " + b.getId().getTimeSlot().getNotary());
+        notificationService.createUserNotification(b.getId().getTimeSlot().getNotary().getId(), "Nouveau rendez-vous le " + b.getId().getDate() + " de " + b.getId().getTimeSlot().getStartTime() + " à " + b.getId().getTimeSlot().getEndTime() + " avec " + b.getId().getAcquirer());
 
     }
 

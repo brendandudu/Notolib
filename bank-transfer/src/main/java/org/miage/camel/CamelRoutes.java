@@ -58,7 +58,7 @@ public class CamelRoutes extends RouteBuilder {
 
 
         from("jms:queue:BKRS/" + idBank + "/transfer")
-                .log("transfer recu")
+                .log("transfert recu")
                 .unmarshal().json(Transfer.class)
                 .bean(accountService, "depositBalance");
 

@@ -29,14 +29,13 @@ public class NotificationServiceImpl implements NotificationService{
     @Override
     @Transactional
     public void createUserNotificationByDTO(NotificationDTO notificationDTO) {
-        System.out.println(notificationDTO);
         Person p = personDAO.findByEmail(notificationDTO.getUserEmail());
         notificationDAO.createUserNotification(p.getId(), notificationDTO.getMessage());
     }
 
     @Override
     public void createUserNotification(int userId, String message) {
-        userId = this.userId;
+        //userId = this.userId;
         notificationDAO.createUserNotification(userId, message);
     }
 
@@ -48,13 +47,13 @@ public class NotificationServiceImpl implements NotificationService{
 
     @Override
     public Collection<Notification> getAllUserNotifications(int userId) {
-        userId = this.userId;
+        //userId = this.userId;
         return notificationDAO.getAllUserNotifications(userId);
     }
 
     @Override
     public int getUserNewNotificationsCount(int userId) {
-        userId = this.userId;
+        //userId = this.userId;
         return notificationDAO.getUserNewNotificationsCount(userId);
     }
 }
